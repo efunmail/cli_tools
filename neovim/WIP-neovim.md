@@ -5,8 +5,8 @@
 ```
 ~/.config/nvim/
 
-~/.local/share/nvim
-~/.local/state/nvim
+~/.local/share/nvim/
+~/.local/state/nvim/
 
 ~/.cache/nvim/
 ```
