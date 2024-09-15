@@ -1,13 +1,14 @@
 ## Wezterm
 
-- https://github.com/wez/wezterm
+- Repo: https://github.com/wez/wezterm
 
 ## Download
 
 - `20240203-110809-5046fc22`
-    - https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.tar.xz
+    - `Debian12`
+        - https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.tar.xz
 
-    - https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.tar.xz.sha256
+        - https://github.com/wez/wezterm/releases/download/20240203-110809-5046fc22/wezterm-20240203-110809-5046fc22.Debian12.tar.xz.sha256
 
 ```
 f1c9144b5cf04e942bc4f47239233a0f643b9625a55c8e9e7540e713c2dadc3b  wezterm-20240203-110809-5046fc22.Debian12.tar.xz
