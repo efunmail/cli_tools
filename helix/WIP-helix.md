@@ -1,6 +1,6 @@
 ## Inlay Hints
 
-- Config - (file: `~/.config/helix/config.toml`
+- Config - (file: `~/.config/helix/config.toml`)
     - Key: `editor.lsp.display-inlay-hints`
 
 ```toml
