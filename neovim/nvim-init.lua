@@ -127,4 +127,11 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   map('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
   map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
   map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+
+  -- ** pyright
+  if file_exists('pyrightconfig.json') then
+    require'lspconfig'.pyright.setup({
+      cmd = {'bun', '--bun', 'x', 'pyright-langserver', '--stdio'}
+    })
+  end
 end
