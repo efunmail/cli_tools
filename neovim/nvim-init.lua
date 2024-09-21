@@ -100,6 +100,7 @@ fn['plug#begin'](PLUGIN_DIR)
 
 Plug('catppuccin/nvim') -- [catppuccin] -- // 2023
 
+Plug('vim-airline/vim-airline') -- [vim-airline]
 
 Plug('nvim-lua/plenary.nvim')
 
@@ -110,6 +111,14 @@ if Vim_Plugin_installed('nvim') then cmd [[
   colorscheme catppuccin-mocha
 ]] end
 
+if Vim_Plugin_installed('vim-airline') then
+  -- // https://github.com/vim-airline/vim-airline#smarter-tab-line
+  cmd [[
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#left_sep = ' '
+    let g:airline#extensions#tabline#left_alt_sep = '|'
+  ]]
+end
 
 if Vim_Plugin_installed('nvim-lspconfig') then
   local lspconfig = require 'lspconfig'
@@ -133,9 +142,10 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   -- map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
   -- ** pyright
-  if file_exists('pyrightconfig.json') then
+  if popen_cmd_ok('bun run -b pyright --version')
+  and file_exists('pyrightconfig.json') then
     require'lspconfig'.pyright.setup({
-      cmd = {'bun', '--bun', 'x', 'pyright-langserver', '--stdio'}
+      cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'}
     })
   end
 end
