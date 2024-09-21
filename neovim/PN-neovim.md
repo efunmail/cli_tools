@@ -16,3 +16,15 @@ for DIR in ~/.config ~/.local/share ~/.local/state ~/.cache; do mv $DIR/nvim $DI
 ```sh
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+
+
+## Init
+
+- Config file: `nvim-init.lua` // based on `094-nvim-init.lua`
+    - [ ] TODO: Can put *'global'*(?) version in `~/.config/nvim/`
+
+- Run, with command (`PlugInstall`)
+
+```sh
+~/neovim/0101/bin/nvim -u nvim-init.lua -c 'PlugInstall'
+```
