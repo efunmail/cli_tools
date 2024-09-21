@@ -54,3 +54,15 @@ Plug('nvim-lua/plenary.nvim')
 Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
 fn['plug#end']()
 ```
+
+## Kickstart
+
+### OmniFunc(?)
+
+- [ ] 'Auto-completion' when typing a string with paths...
+
+    - [ ] Perhaps part of *Telescope* or *Treesitter*?
+
+```lua
+s = '~/cli_tools/...'
+```
