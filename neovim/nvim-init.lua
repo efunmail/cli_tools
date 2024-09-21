@@ -118,15 +118,19 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   map('n', 'gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>')
   map('n', 'gr', ':lua vim.lsp.buf.references()<CR>')
 
-  map('n', 'K',   '<cmd>lua vim.lsp.buf.hover()<CR>')
+  -- // https://github.com/neovim/nvim-lspconfig#configuration -- pn2024
+  -- map('n', 'K',   '<cmd>lua vim.lsp.buf.hover()<CR>')
+
   -- // `v:` : https://github.com/nanotee/nvim-lua-guide#vimapinvim_replace_termcodes
   -- map('i', 'A-k', 'v:vim.lsp.buf.hover()') -- TODO ??
 
   -- // https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
   -- // `show_line_diagnostics`: https//github.com/neovim/nvim-lspconfig/issues/1046
   map('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+   
+  -- // https://github.com/neovim/nvim-lspconfig#configuration -- pn2024
+  -- map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  -- map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
   -- ** pyright
   if file_exists('pyrightconfig.json') then
