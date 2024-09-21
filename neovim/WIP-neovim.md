@@ -11,6 +11,23 @@
 ~/.cache/nvim/
 ```
 
+### NVIM_APPNAME
+
+https://neovim.io/doc/user/starting.html
+
+> **Standard Paths**
+>
+> `vim.fn.stdpath('config')`, etc.
+
+- Can specify `NVIM_APPNAME` on cmd-line:
+
+    - Dirs will be: `~/.config/$NVIM_APPNAME/`, etc
+
+```sh
+NVIM_APPNAME=nvim-PN nvim
+# ==================
+```
+
 ## Kickstart
 
 Repo: https://github.com/nvim-lua/kickstart.nvim
