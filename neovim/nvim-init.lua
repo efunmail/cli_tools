@@ -105,6 +105,13 @@ Plug('vim-airline/vim-airline') -- [vim-airline]
 Plug('nvim-lua/plenary.nvim')
   Plug('nvim-telescope/telescope.nvim') -- [telescope.nvim]
   Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
+
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'}) -- [nvim-treesitter]
+  Plug('nvim-treesitter/nvim-treesitter-refactor') -- [nvim-treesitter-refactor]
+  Plug('nvim-treesitter/nvim-treesitter-textobjects') -- [nvim-treesitter-textobjects]
+
+  Plug('nvim-treesitter/nvim-treesitter-context') -- [nvim-treesitter-context]
+
 fn['plug#end']()
 
 if Vim_Plugin_installed('nvim') then cmd [[
@@ -185,5 +192,147 @@ if Vim_Plugin_installed('nvim-lspconfig') then
     require'lspconfig'.pyright.setup({
       cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'}
     })
+  end
+end
+
+
+if Vim_Plugin_installed('nvim-treesitter') then
+_COMMENT = [[
+  " // Run `:TSInstallInfo` to get list of parsers 
+  "
+  " // ALT: install *manually* - (eg. run `:TSInstall lua`) 
+  "
+  " ( FYI: For settings/info, run `:TSModuleInfo` ) 
+  "
+]]
+  require('nvim-treesitter.configs').setup({
+    -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    -- ensure_installed = "maintained", -- ORIG
+    ensure_installed = {
+      "python", "javascript", "typescript",
+      "vue", "lua",
+      "json", "toml", "yaml",
+      "css", "html", "scss",
+      "markdown",
+      "pug", -- [OPTION]
+      -- "markdown", -- // 2023
+      "markdown_inline" -- // 2023
+      -- "dockerfile",
+      -- "php",
+      -- "go", "svelte",
+      -- "java", "kotlin", "ruby", "rust" -- !! kotlin is huge! (17.9 MB)
+    },
+    ignore_install = { }, -- List of parsers to ignore installing
+
+    highlight = {
+      enable = true, -- false will disable the whole extension
+
+      -- // ORIG: DISABLE "vue" - otherwise, conflicts with `vim-vue...` and `pug`
+      -- disable = { "pug" },  -- // [OPTION]
+
+      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+      -- Using this option may slow down your editor, and you may see some duplicate highlights.
+      -- Instead of true it can also be a list of languages
+      additional_vim_regex_highlighting = false,
+    },
+    -- // https://github.com/nvim-treesitter/nvim-treesitter#incremental-selection
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        -- // https://github.com/nvim-treesitter/nvim-treesitter/issues/509#issuecomment-699176722
+        init_selection    = '<C-n>', -- 'gnn',
+        node_incremental  = '<C-n>', -- 'grn',
+        node_decremental  = '<C-m>', -- 'grm'
+        scope_incremental = '<C-s>', -- 'grc'
+      },
+    },
+
+    -- [treesitter-refactor] // https://github.com/nvim-treesitter/nvim-treesitter-refactor
+    refactor = {
+      -- highlight_definitions = { enable = true },
+      highlight_current_scope = { enable = true }, -- // [OPTION]
+
+      smart_rename = {
+        enable = true,
+        keymaps = {
+          smart_rename = "grr",
+        },
+      },
+
+      navigation = {
+        enable = true,
+        keymaps = {
+          goto_definition = "gnd",
+          list_definitions = "gnD",
+          list_definitions_toc = "gO",
+          goto_next_usage = "<a-*>",
+          goto_previous_usage = "<a-#>",
+        },
+      },
+    },
+
+    -- [nvim-treesitter-textobjects]
+    textobjects = {
+      move = {
+        enable = true,
+        set_jumps = true, -- whether to set jumps in the jumplist
+        goto_next_start = {
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
+    },
+  })
+
+  if Vim_Plugin_installed('nvim-treesitter-context') then
+    require'treesitter-context'.setup {
+      enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+      max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+      patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
+          -- For all filetypes
+          -- Note that setting an entry here replaces all other patterns for this entry.
+          -- By setting the 'default' entry below, you can control which nodes you want to
+          -- appear in the context window.
+          default = {
+              'class',
+              'function',
+              'method',
+              'for', -- These won't appear in the context
+              'while',
+              'if',
+              'switch',
+              'case',
+          },
+      },
+      exact_patterns = {
+      },
+
+      -- [!] The options below are exposed but shouldn't require your attention,
+      --     you can safely ignore them.
+
+      zindex = 20, -- The Z-index of the context window
+    }
+  end
+
+  -- // re: `highlight_current_scope` [OPTION]
+  if true then -- TEMP
+  cmd [[
+    :highlight TSCurrentScope cterm=NONE  gui=NONE
+    :highlight TSComment      cterm=ITALIC  gui=ITALIC
+    :highlight TSString       cterm=ITALIC  gui=ITALIC
+  ]]
   end
 end
