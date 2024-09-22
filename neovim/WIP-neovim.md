@@ -54,3 +54,17 @@ vim.opt.undofile = true
 
     - `inlay-hints.nvim`: https://github.com/MysticalDevil/inlay-hints.nvim/blob/master/lua/inlay-hints/utils.lua#L70
     - `function M.toggle_inlay_hints()`
+  
+## VimPlug
+
+- After *adding* a plugin (e.g. `nvim-init.lua`), **install** by:
+
+```sh
+NVIM_APPNAME=nvim-PN ~/neovim/0101/bin/nvim -c 'PlugInstall'
+```
+
+- Create a **snapshot** of plugins with their hashes:
+
+```vim
+PlugSnapshot my-snapshot.vim
+```
