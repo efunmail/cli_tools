@@ -103,8 +103,8 @@ Plug('catppuccin/nvim') -- [catppuccin] -- // 2023
 Plug('vim-airline/vim-airline') -- [vim-airline]
 
 Plug('nvim-lua/plenary.nvim')
-
-Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
+  Plug('nvim-telescope/telescope.nvim') -- [telescope.nvim]
+  Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
 fn['plug#end']()
 
 if Vim_Plugin_installed('nvim') then cmd [[
@@ -118,6 +118,44 @@ if Vim_Plugin_installed('vim-airline') then
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
   ]]
+end
+
+-- TODO:
+--   [ ] CHECK the keymaps... 
+--   [ ] 'f_' OR 's_'  ??
+if Vim_Plugin_installed('telescope.nvim') then
+  -- // https://github.com/nvim-telescope/telescope.nvim#usage
+  map('n', '<Leader>fk', '<cmd>Telescope keymaps<CR>')
+
+  map('n', '<Leader>fb', '<cmd>Telescope buffers<CR>')
+
+  map('n', '<Leader>ff', '<cmd>Telescope find_files<CR>')
+  map('n', '<Leader>fF', '<cmd>Telescope find_files hidden=true<CR>')
+
+  -- // https://www.reddit.com/r/neovim/comments/rkh3o0/telescope_live_grep_on_a_single_file_only/
+  -- // fgb: current Buffer; fgo: Open files; fgcs: cwd=src; fgcd: cwd=docs; etc 
+  map('n', '<Leader>fgb',  '<cmd>Telescope live_grep search_dirs={vim.fn.expand("%:p")}<CR>')
+  map('n', '<Leader>fgo',  '<cmd>Telescope live_grep grep_open_files=true<CR>')
+  map('n', '<Leader>fgcs', '<cmd>Telescope live_grep cwd=src<CR>')
+  map('n', '<Leader>fgcd', '<cmd>Telescope live_grep cwd=docs<CR>')
+  map('n', '<Leader>fgct', '<cmd>Telescope live_grep cwd=tests<CR>')
+  map('n', '<Leader>fG',   '<cmd>Telescope live_grep<CR>')
+
+  map('n', '<Leader>fh', '<cmd>Telescope git_files<CR>')
+
+  map('n', '<Leader>ft', '<cmd>Telescope treesitter<CR>')
+
+  -- // https://www.youtube.com/watch?v=stqUbv-5u2s
+  -- // https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua
+  vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, {desc='[?] Find recently opened files'}) -- // 2023
+  vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' }) -- // 2023
+  vim.keymap.set('n', '<leader>/', function() -- // 2023
+    -- You can pass additional configuration to telescope to change theme, layout, etc.
+    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      winblend = 10,
+      previewer = false,
+    })
+  end, { desc = '[/] Fuzzily search in current buffer' })
 end
 
 if Vim_Plugin_installed('nvim-lspconfig') then
