@@ -348,18 +348,9 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   -- map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
   -- map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 
-  -- ** pyright
-  if popen_cmd_ok('bun run -b pyright --version')
-  and file_exists('pyrightconfig.json') then
-    require'lspconfig'.pyright.setup({
-      cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
-      -- // Ternary `COND and A or B` - http://lua-users.org/wiki/TernaryOperator
-      capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
-        and require('cmp_nvim_lsp').default_capabilities() -- [nvim-cmp]
-        or nil
-    })
-  end
   
+  local capabilities = vim.lsp.protocol.make_client_capabilities() -- [kickstart:capabilities]
+
   if Vim_Plugin_installed('nvim-cmp') then -- [nvim-cmp]
     local cmp = require'cmp'
     local luasnip = require('luasnip') -- [LuaSnip]
@@ -435,10 +426,27 @@ if Vim_Plugin_installed('nvim-lspconfig') then
       })
     })
  
+    -- [kickstart:capabilities]
+    capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
+      and vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+      or null
+
     -- // https://github.com/hrsh7th/nvim-cmp#setup
     -- >> Set up lspconfig. Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
     -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
     --   capabilities = require('cmp_nvim_lsp').default_capabilities()
     -- }
+  end
+
+  -- ** pyright
+  if popen_cmd_ok('bun run -b pyright --version')
+  and file_exists('pyrightconfig.json') then
+    require'lspconfig'.pyright.setup({
+      cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
+      -- // Ternary `COND and A or B` - http://lua-users.org/wiki/TernaryOperator
+      capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
+        and capabilities -- and require('cmp_nvim_lsp').default_capabilities() -- [nvim-cmp]
+        or nil
+    })
   end
 end
