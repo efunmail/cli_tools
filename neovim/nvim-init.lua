@@ -3,7 +3,8 @@ local _COMMENT = [[
   Auto-Completion
   - [x] nvim-cmp
   - [.] cmp-nvim-lsp cmp_nvim_lsp 
-      - DISABLED: { name = 'nvim_lsp' }, -- pn2024_WIP
+      - Can DISABLE: { name = 'nvim_lsp' }, -- pn2024_WIP
+      - [x] `sources = cmp.config.sources` // NOPE
 
 ]]
 -- ## LUA functions... // PN
@@ -124,7 +125,7 @@ Plug('nvim-lua/plenary.nvim')
   Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
     -- ## Auto-Completion
     -- // https://github.com/hrsh7th/nvim-cmp#setup -- [nvim-cmp]
-    -- Plug 'hrsh7th/cmp-nvim-lsp' -- pn2024_WIP
+    Plug 'hrsh7th/cmp-nvim-lsp' -- pn2024_WIP
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
@@ -412,20 +413,37 @@ if Vim_Plugin_installed('nvim-lspconfig') then
       },
 
       -- [kickstart]
-      -- sources = {
-      --   { name = 'nvim_lsp' },
-      --   { name = 'luasnip' },
-      --   { name = 'path' },
-      -- },
-      sources = cmp.config.sources({
-        -- { name = 'nvim_lsp' }, -- pn2024_WIP
+      sources = {
+        { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },
-      }, {
-        { name = 'buffer' },
-      })
+      },
+      -- sources = cmp.config.sources({ -- pn2024 // NOPE
+      --   -- { name = 'nvim_lsp' }, -- pn2024_WIP
+      --   { name = 'luasnip' },
+      --   { name = 'path' },
+      -- }, {
+      --   { name = 'buffer' },
+      -- })
     })
- 
+    -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline({ '/', '?' }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+    -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        { name = 'cmdline' }
+      }),
+      matching = { disallow_symbol_nonprefix_matching = false }
+    })
+
     -- [kickstart:capabilities]
     capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
       and vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
