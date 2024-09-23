@@ -1,3 +1,11 @@
+local _COMMENT = [[
+
+  Auto-Completion
+  - [x] nvim-cmp
+  - [.] cmp-nvim-lsp cmp_nvim_lsp 
+      - DISABLED: { name = 'nvim_lsp' }, -- pn2024_WIP
+
+]]
 -- ## LUA functions... // PN
 
 -- ** Whether file `name` exists
@@ -73,7 +81,7 @@ opt.smarttab = true
 --    Moving between tabs: :tabnext :tabprevious
 opt.showtabline = 2
 
-opt.undofile = true -- // pn2024 [kickstart.nvim]
+opt.undofile = true -- // pn2024 [kickstart]
 
 -- ## AUTO-Commands // ToDo
 
@@ -102,15 +110,28 @@ Plug('catppuccin/nvim') -- [catppuccin] -- // 2023
 
 Plug('vim-airline/vim-airline') -- [vim-airline]
 
-Plug('nvim-lua/plenary.nvim')
-  Plug('nvim-telescope/telescope.nvim') -- [telescope.nvim]
-  Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
-
+-- ## TreeSitter
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'}) -- [nvim-treesitter]
   Plug('nvim-treesitter/nvim-treesitter-refactor') -- [nvim-treesitter-refactor]
   Plug('nvim-treesitter/nvim-treesitter-textobjects') -- [nvim-treesitter-textobjects]
 
   Plug('nvim-treesitter/nvim-treesitter-context') -- [nvim-treesitter-context]
+
+Plug('nvim-lua/plenary.nvim')
+  -- ## Telescope
+  Plug('nvim-telescope/telescope.nvim') -- [telescope.nvim]
+  -- ## LSPconfig
+  Plug('neovim/nvim-lspconfig') -- [nvim-lspconfig]
+    -- ## Auto-Completion
+    -- // https://github.com/hrsh7th/nvim-cmp#setup -- [nvim-cmp]
+    -- Plug 'hrsh7th/cmp-nvim-lsp' -- pn2024_WIP
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/nvim-cmp'
+    -- ## Auto-Completion - LuaSnip
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'saadparwaiz1/cmp_luasnip'
 
 fn['plug#end']()
 
@@ -164,37 +185,6 @@ if Vim_Plugin_installed('telescope.nvim') then
     })
   end, { desc = '[/] Fuzzily search in current buffer' })
 end
-
-if Vim_Plugin_installed('nvim-lspconfig') then
-  local lspconfig = require 'lspconfig'
-
-  -- ## MAP ...
-  map('n', 'gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>')
-  map('n', 'gr', ':lua vim.lsp.buf.references()<CR>')
-
-  -- // https://github.com/neovim/nvim-lspconfig#configuration -- pn2024
-  -- map('n', 'K',   '<cmd>lua vim.lsp.buf.hover()<CR>')
-
-  -- // `v:` : https://github.com/nanotee/nvim-lua-guide#vimapinvim_replace_termcodes
-  -- map('i', 'A-k', 'v:vim.lsp.buf.hover()') -- TODO ??
-
-  -- // https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
-  -- // `show_line_diagnostics`: https//github.com/neovim/nvim-lspconfig/issues/1046
-  map('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-   
-  -- // https://github.com/neovim/nvim-lspconfig#configuration -- pn2024
-  -- map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-  -- map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-
-  -- ** pyright
-  if popen_cmd_ok('bun run -b pyright --version')
-  and file_exists('pyrightconfig.json') then
-    require'lspconfig'.pyright.setup({
-      cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'}
-    })
-  end
-end
-
 
 if Vim_Plugin_installed('nvim-treesitter') then
 _COMMENT = [[
@@ -334,5 +324,121 @@ _COMMENT = [[
     :highlight TSComment      cterm=ITALIC  gui=ITALIC
     :highlight TSString       cterm=ITALIC  gui=ITALIC
   ]]
+  end
+end
+
+if Vim_Plugin_installed('nvim-lspconfig') then
+  local lspconfig = require 'lspconfig'
+
+  -- ## MAP ...
+  map('n', 'gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>')
+  map('n', 'gr', ':lua vim.lsp.buf.references()<CR>')
+
+  -- // https://github.com/neovim/nvim-lspconfig#configuration -- pn2024
+  -- map('n', 'K',   '<cmd>lua vim.lsp.buf.hover()<CR>')
+
+  -- // `v:` : https://github.com/nanotee/nvim-lua-guide#vimapinvim_replace_termcodes
+  -- map('i', 'A-k', 'v:vim.lsp.buf.hover()') -- TODO ??
+
+  -- // https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
+  -- // `show_line_diagnostics`: https//github.com/neovim/nvim-lspconfig/issues/1046
+  map('n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+   
+  -- // https://github.com/neovim/nvim-lspconfig#configuration -- pn2024
+  -- map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
+  -- map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
+
+  -- ** pyright
+  if popen_cmd_ok('bun run -b pyright --version')
+  and file_exists('pyrightconfig.json') then
+    require'lspconfig'.pyright.setup({
+      cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
+      -- // Ternary `COND and A or B` - http://lua-users.org/wiki/TernaryOperator
+      capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
+        and require('cmp_nvim_lsp').default_capabilities() -- [nvim-cmp]
+        or nil
+    })
+  end
+  
+  if Vim_Plugin_installed('nvim-cmp') then -- [nvim-cmp]
+    local cmp = require'cmp'
+    local luasnip = require('luasnip') -- [LuaSnip]
+    cmp.setup({
+      snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+      },
+      completion = { completeopt = 'menu,menuone,noinsert' }, -- [kickstart] TODO: ??
+     
+      -- [kickstart] Please read `:help ins-completion`
+      mapping = cmp.mapping.preset.insert {
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+
+        -- Scroll the documentation window [b]ack / [f]orward
+        ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+
+        -- Accept ([y]es) the completion.
+        --  This will auto-import if your LSP supports it.
+        --  This will expand snippets if the LSP sent a snippet.
+        ['<C-y>'] = cmp.mapping.confirm { select = true },
+
+        -- If you prefer more traditional completion keymaps,
+        -- you can uncomment the following lines
+        --['<CR>'] = cmp.mapping.confirm { select = true },
+        --['<Tab>'] = cmp.mapping.select_next_item(),
+        --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+
+        -- Manually trigger a completion from nvim-cmp.
+        --  Generally you don't need this, because nvim-cmp will display
+        --  completions whenever it has completion options available.
+        ['<C-Space>'] = cmp.mapping.complete {},
+
+        -- Think of <c-l> as moving to the right of your snippet expansion.
+        --  So if you have a snippet that's like:
+        --  function $name($args)
+        --    $body
+        --  end
+        --
+        -- <c-l> will move you to the right of each of the expansion locations.
+        -- <c-h> is similar, except moving you backwards.
+        ['<C-l>'] = cmp.mapping(function()
+          if luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
+          end
+        end, { 'i', 's' }),
+        ['<C-h>'] = cmp.mapping(function()
+          if luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          end
+        end, { 'i', 's' }),
+
+        -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion),
+        -- see: https://github.com/L3MON4D3/LuaSnip#keymaps
+      },
+
+      -- [kickstart]
+      -- sources = {
+      --   { name = 'nvim_lsp' },
+      --   { name = 'luasnip' },
+      --   { name = 'path' },
+      -- },
+      sources = cmp.config.sources({
+        -- { name = 'nvim_lsp' }, -- pn2024_WIP
+        { name = 'luasnip' },
+        { name = 'path' },
+      }, {
+        { name = 'buffer' },
+      })
+    })
+ 
+    -- // https://github.com/hrsh7th/nvim-cmp#setup
+    -- >> Set up lspconfig. Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+    -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
+    --   capabilities = require('cmp_nvim_lsp').default_capabilities()
+    -- }
   end
 end
