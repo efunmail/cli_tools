@@ -449,6 +449,16 @@ if Vim_Plugin_installed('nvim-lspconfig') then
       and vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
       or null
 
+    -- if Vim_Plugin_installed('cmp_nvim_lsp') then
+    --   capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+    --   -- // https://github.com/hrsh7th/cmp-nvim-lsp/issues/42#issuecomment-1283825572
+    --   require('lsp_config').util.default_config =
+    --   vim.tbl_deep_extend('force', require('lsp_config').util.default_config, {
+    --       capabilities = capabilities,
+    --   })
+    -- end
+
     -- // https://github.com/hrsh7th/nvim-cmp#setup
     -- >> Set up lspconfig. Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
     -- require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
