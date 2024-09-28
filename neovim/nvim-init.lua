@@ -467,7 +467,8 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   end
 
   -- ** pyright
-  if popen_cmd_ok('bun run -b pyright --version')
+  -- if popen_cmd_ok('bun run -b pyright --version')
+  if popen_cmd_ok('node node_modules/.bin/pyright --version')
   and file_exists('pyrightconfig.json') then
     require'lspconfig'.pyright.setup({
       -- cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
