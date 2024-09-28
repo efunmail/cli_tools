@@ -445,9 +445,9 @@ if Vim_Plugin_installed('nvim-lspconfig') then
     })
 
     -- [kickstart:capabilities]
-    capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
-      and vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-      or null
+    -- capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
+    --   and vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    --   or null
 
     -- if Vim_Plugin_installed('cmp_nvim_lsp') then
     --   capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -470,13 +470,14 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   if popen_cmd_ok('bun run -b pyright --version')
   and file_exists('pyrightconfig.json') then
     require'lspconfig'.pyright.setup({
-      cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
+      -- cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
       -- cmd = { 'deno', 'run', '--node-modules-dir', '--allow-read', '--allow-env', '--allow-write', 'node_modules/.bin/pyright-langserver', '--stdio' }
+      cmd = { 'node', 'node_modules/.bin/pyright-langserver', '--stdio' },
 
       -- // Ternary `COND and A or B` - http://lua-users.org/wiki/TernaryOperator
-      capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
-        and capabilities -- and require('cmp_nvim_lsp').default_capabilities() -- [nvim-cmp]
-        or nil
+      -- capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
+      --   and capabilities -- and require('cmp_nvim_lsp').default_capabilities() -- [nvim-cmp]
+      --   or nil
     })
   end
 end
