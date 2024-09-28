@@ -471,6 +471,8 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   and file_exists('pyrightconfig.json') then
     require'lspconfig'.pyright.setup({
       cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
+      -- cmd = { 'deno', 'run', '--node-modules-dir', '--allow-read', '--allow-env', '--allow-write', 'node_modules/.bin/pyright-langserver', '--stdio' }
+
       -- // Ternary `COND and A or B` - http://lua-users.org/wiki/TernaryOperator
       capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
         and capabilities -- and require('cmp_nvim_lsp').default_capabilities() -- [nvim-cmp]
