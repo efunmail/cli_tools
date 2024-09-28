@@ -466,14 +466,34 @@ if Vim_Plugin_installed('nvim-lspconfig') then
     -- }
   end
 
-  -- ** pyright
+  -- ## PHP - intelephense
+  if file_contains('package.json', 'intelephense') then
+    lspconfig.intelephense.setup {
+      -- // Override `root_dir` - use `getcwd` (eg. if NO `composer.json` file)
+      root_dir = function() return vim.fn.getcwd() end,
+      cmd = {"node_modules/.bin/intelephense", "--stdio"},
+      settings = {
+        intelephense = {
+          -- // https://neovim.discourse.group/t/how-to-configure-file-associations-for-intelephense-ls/1667/13
+          -- diagnostics = { enable = false },
+          environment = {
+            -- phpVersion = "8.3.0"  -- // DEFAULT - https://github.com/bmewburn/vscode-intelephense/blob/master/package.json 
+            -- phpVersion = "7.4.0" -- "5.6.0"  -- //  NOTE: Does NOT work??
+          }
+        }
+      }
+    }
+  end
+
+  -- ## Python - PYRIGHT (BASEDpyright)
   -- if popen_cmd_ok('bun run -b pyright --version')
   if popen_cmd_ok('node node_modules/.bin/pyright --version')
   and file_exists('pyrightconfig.json') then
-    require'lspconfig'.pyright.setup({
+    lspconfig.pyright.setup({
       -- cmd = {'bun', 'x', '-b', 'pyright-langserver', '--stdio'},
       -- cmd = { 'deno', 'run', '--node-modules-dir', '--allow-read', '--allow-env', '--allow-write', 'node_modules/.bin/pyright-langserver', '--stdio' }
-      cmd = { 'node', 'node_modules/.bin/pyright-langserver', '--stdio' },
+      -- cmd = { 'node', 'node_modules/.bin/pyright-langserver', '--stdio' },
+      cmd = {'node_modules/.bin/pyright-langserver', '--stdio'},
 
       -- // Ternary `COND and A or B` - http://lua-users.org/wiki/TernaryOperator
       -- capabilities = Vim_Plugin_installed('cmp_nvim_lsp')
