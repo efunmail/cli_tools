@@ -376,13 +376,17 @@ if Vim_Plugin_installed('nvim-lspconfig') then
         -- Accept ([y]es) the completion.
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
-        ['<C-o>'] = cmp.mapping.confirm { select = true }, -- pn2024: <C-o>
+        -- ['<C-y>'] = cmp.mapping.confirm { select = true }, -- pn2024: <C-o>
+        -- // REF: https://github.com/hrsh7th/cmp-cmdline/issues/36#issuecomment-1100421139
+        ['<C-o>'] = cmp.mapping(cmp.mapping.confirm { select = true }, { 'i', 'c' }), -- pn2024
 
         -- If you prefer more traditional completion keymaps,
         -- you can uncomment the following lines
-        ['<CR>'] = cmp.mapping.confirm { select = true },  -- pn2024
+        --['<CR>'] = cmp.mapping.confirm { select = true },
         --['<Tab>'] = cmp.mapping.select_next_item(),
         --['<S-Tab>'] = cmp.mapping.select_prev_item(),
+        -- // Similary to '<C-o>' above
+        ['<CR>'] = cmp.mapping(cmp.mapping.confirm { select = true }, { 'i', 'c' }),  -- pn2024
 
         -- Manually trigger a completion from nvim-cmp.
         --  Generally you don't need this, because nvim-cmp will display
