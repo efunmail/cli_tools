@@ -470,6 +470,26 @@ if Vim_Plugin_installed('nvim-lspconfig') then
     -- }
   end
 
+  -- local pn = require(vim.fn.getcwd() .. '/pn-lua') -- pn2024_WIP
+
+  -- ## Lua
+  _COMMENT = [[
+    # // INSTALL https://github.com/LuaLS/lua-language-server/releases
+    mkdir lua_ls
+    cd lua_ls
+    tar xf ../lua-language-server-3.10.6-linux-x64.tar.gz 
+
+    cd ..
+    sudo cp -pr lua_ls/ /usr/local/bin
+
+    # // SETUP
+    PATH=/usr/local/bin/lua_ls:$PATH
+
+  ]]
+  if popen_cmd_ok('lua-language-server --version') then
+    lspconfig.lua_ls.setup({})
+  end
+
   -- ## PHP - intelephense
   -- // TODO: *parse* JSON (`vim.json.decode()`) https://github.com/bmewburn/vscode-intelephense/issues/1710#issuecomment-2125396962
   if file_contains('package.json', 'intelephense') then
