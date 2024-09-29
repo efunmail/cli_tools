@@ -376,11 +376,11 @@ if Vim_Plugin_installed('nvim-lspconfig') then
         -- Accept ([y]es) the completion.
         --  This will auto-import if your LSP supports it.
         --  This will expand snippets if the LSP sent a snippet.
-        ['<C-y>'] = cmp.mapping.confirm { select = true },
+        ['<C-o>'] = cmp.mapping.confirm { select = true }, -- pn2024: <C-o>
 
         -- If you prefer more traditional completion keymaps,
         -- you can uncomment the following lines
-        --['<CR>'] = cmp.mapping.confirm { select = true },
+        ['<CR>'] = cmp.mapping.confirm { select = true },  -- pn2024
         --['<Tab>'] = cmp.mapping.select_next_item(),
         --['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
