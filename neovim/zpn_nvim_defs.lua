@@ -22,6 +22,7 @@ my_data = vim.tbl_deep_extend('force', my_data, {
 ]]
 _COMMENT = nil
 
+-- REF: http://lua-users.org/wiki/ModuleDefinition
 local M = {}
 
 function M.hello() print('Hello') end
