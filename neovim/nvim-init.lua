@@ -483,7 +483,9 @@ if Vim_Plugin_installed('nvim-lspconfig') then
           environment = {
             -- phpVersion = "8.3.0"  -- // DEFAULT - https://github.com/bmewburn/vscode-intelephense/blob/master/package.json 
             -- phpVersion = "7.4.0" -- "5.6.0"  -- //  NOTE: Does NOT work??
-          }
+
+            includePaths = { "/tmp/php" }, -- pn2024
+          },
         }
       }
     }
