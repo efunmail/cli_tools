@@ -471,6 +471,7 @@ if Vim_Plugin_installed('nvim-lspconfig') then
   end
 
   -- ## PHP - intelephense
+  -- // TODO: *parse* JSON (`vim.json.decode()`) https://github.com/bmewburn/vscode-intelephense/issues/1710#issuecomment-2125396962
   if file_contains('package.json', 'intelephense') then
     lspconfig.intelephense.setup {
       -- // Override `root_dir` - use `getcwd` (eg. if NO `composer.json` file)
@@ -482,7 +483,8 @@ if Vim_Plugin_installed('nvim-lspconfig') then
           -- diagnostics = { enable = false },
           environment = {
             -- phpVersion = "8.3.0"  -- // DEFAULT - https://github.com/bmewburn/vscode-intelephense/blob/master/package.json 
-            -- phpVersion = "7.4.0" -- "5.6.0"  -- //  NOTE: Does NOT work??
+            -- phpVersion = "7.4.0", -- "5.6.0"  -- //  NOTE: Does NOT work??
+            -- phpVersion = "5.6.0",
 
             includePaths = { "/tmp/php" }, -- pn2024
           },
