@@ -470,7 +470,7 @@ if Vim_Plugin_installed('nvim-lspconfig') then
     -- }
   end
 
-  -- local pn = require(vim.fn.getcwd() .. '/pn-lua') -- pn2024_WIP
+  ZPN_NVIM_DEFS = require('zpn_nvim_defs') -- pn2024
 
   -- ## Lua
   _COMMENT = [[
@@ -487,7 +487,9 @@ if Vim_Plugin_installed('nvim-lspconfig') then
 
   ]]
   if popen_cmd_ok('lua-language-server --version') then
-    lspconfig.lua_ls.setup({})
+    lspconfig.lua_ls.setup(
+      vim.tbl_deep_extend('force', {}, ZPN_NVIM_DEFS.lspconfig.lua_ls)
+    )
   end
 
   -- ## PHP - intelephense
