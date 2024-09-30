@@ -12,3 +12,5 @@ print(MAIN.hello('Ami'))
 print(MAIN.treesitter.MSG)
 
 print(MAIN.string_match())
+
+MAIN.table_pairs()
