@@ -14,3 +14,5 @@ print(MAIN.treesitter.MSG)
 print(MAIN.string_match())
 
 MAIN.table_pairs()
+
+MAIN.oop_colon()
