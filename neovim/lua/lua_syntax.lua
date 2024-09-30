@@ -55,4 +55,18 @@ function M.table_pairs()
   end
 end
 
+
+function M.oop_colon()
+  -- // REF: https://www.lua.org/pil/16.html
+  Account = {
+    balance = 0,
+    withdraw = function(self, v) self.balance = self.balance - v end
+  }
+  function Account:deposit(v) self.balance = self.balance + v end
+
+  Account:deposit(200.00)
+  Account:withdraw(50.00)
+  print('Account balance = ' .. Account.balance)
+
+end
 return M -- [lua_module]
