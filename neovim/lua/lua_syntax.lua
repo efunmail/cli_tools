@@ -34,7 +34,7 @@ M.treesitter = {
 
 
 function M.string_match(s)
-  -- REF: https://stackoverflow.com/a/77810559
+  -- // REF: https://stackoverflow.com/a/77810559
 
   -- local path = "/path/to/your/file/filename.txt"
   local filename, extension = ("/some/path/filename.txt"):match("^.+/(.+)%.(.+)$")
@@ -42,5 +42,17 @@ function M.string_match(s)
   print(filename, extension)
 end
 
+
+function M.table_pairs()
+  local my_data = {
+    { id = 110, name = 'Ami', },
+    { id = 120, name = 'Bob', },
+  }
+  -- ** ITERATE over a table
+  -- // REF: https://stackoverflow.com/a/17437077
+  for k, v in pairs(my_data)
+    do print (k, v.id, v.name)
+  end
+end
 
 return M -- [lua_module]
