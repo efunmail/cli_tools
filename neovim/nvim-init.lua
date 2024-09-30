@@ -440,6 +440,10 @@ if Vim_Plugin_installed('nvim-lspconfig') then
     -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
+      -- // https://github.com/hrsh7th/cmp-cmdline/issues/62#issue-1371507171
+      -- // REF: "You can disable auto-completion" - https://github.com/hrsh7th/nvim-cmp/blob/main/doc/cmp.txt
+      completion = { autocomplete = false }, -- pn2024
+
       sources = cmp.config.sources({
         { name = 'path' }
       }, {
