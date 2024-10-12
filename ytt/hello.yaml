@@ -1,10 +1,10 @@
-#! $$ ytt -f THIS_FILE.yaml -v string='my str'
+#! $$ ytt -f THIS_FILE.yaml -v msg='my str'
 
 #! ## Data VALUES
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/config.yml
 
 #@ load("@ytt:data", "data")
-string: #@ data.values.string
+my_msg: #@ data.values.msg
 #!bool: #@ data.values.bool
 #!int: #@ data.values.int
 
