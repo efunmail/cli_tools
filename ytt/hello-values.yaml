@@ -2,3 +2,5 @@
 ---
 
 msg: "DEFAULT message!"
+
+names_array: ["Ami_0", "Bob_0", "Cheryl_0", "Dave_0"]
