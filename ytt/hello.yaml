@@ -17,6 +17,7 @@ msg: #@ data.values.msg
 my_msg__format: #@ "My message is: {}" .format(data.values.msg)
 
 #! ## Data VALUES...
+#! ** REF: https://carvel.dev/ytt/docs/v0.50.x/ytt-data-values/
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/run.sh
 #!
 #! - `--data-value-yaml`
@@ -35,6 +36,9 @@ TEMPLATED_strings:
   str_VAR:     Hello (@= var_1 @)
   str_DATA:    Hello (@= data.values.msg @)
 
+  #! // NO 'f-strings' in YTT - although they are 
+  #! // supported in StarLark https://github.com/bazelbuild/starlark/issues/91#issuecomment-1708326959)
+  #! str_F:       #@ f"Hello..."
 
 cmd: #! TODO: starlark's functions ??
   #! `sh()` - https://github.com/bazelbuild/starlark/issues/91
