@@ -78,3 +78,95 @@ array_with_index:
 - val: #@ arr[i]
   index: #@ i
 #@ end
+
+
+#! $$ ytt -f hello.yaml -f hello-values.yaml -v msg='my str'
+#! #         ==========    -----------------    ------------
+
+
+#@ myid = 'abc123'
+myid: #@ myid
+
+
+#! ## Data VALUES
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/config.yml
+
+#@ load("@ytt:data", "data")
+
+#! ** Text Templating - https://carvel.dev/ytt/docs/v0.50.x/ytt-text-templating/#inside-yaml-strings
+msg: #@ data.values.msg
+#!my_msg: #@ "My message is: " + (data.values.msg or "some default")
+my_msg__format: #@ "My message is: {}" .format(data.values.msg)
+
+#! ## Data VALUES...
+#! ** REF: https://carvel.dev/ytt/docs/v0.50.x/ytt-data-values/
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/run.sh
+#!
+#! - `--data-value-yaml`
+#!
+#! - `--data-value-env`
+#! - `--data-value-env-yaml`
+#!
+#! - `--data-values-file`
+
+
+#! ## TEMPLATED Strings `(@= "..." @)`- https://carvel.dev/ytt/docs/v0.50.x/ytt-text-templating/
+#@ var_1 = "again..."
+#@yaml/text-templated-strings
+TEMPLATED_strings:
+  str_LITERAL: Hello (@= "there!" @)
+  str_VAR:     Hello (@= var_1 @)
+  str_VAR_2:   #@ 'Hello (@= var_1 @)...'
+  str_DATA:    Hello (@= data.values.msg @)
+
+  #! // NO 'f-strings' in YTT - although they are 
+  #! // supported in StarLark https://github.com/bazelbuild/starlark/issues/91#issuecomment-1708326959)
+  #! str_F:       #@ f"Hello..."
+
+cmd: #! TODO: starlark's functions ??
+  #! `sh()` - https://github.com/bazelbuild/starlark/issues/91
+  #! ls: #@ sh("ls -al").stdout.split()
+
+
+#! ## Data TYPES
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/playground/basics/example-datatypes/datatypes.yml
+
+#! // `None` (`null`); `True` (`true`)
+nullz: #@ None
+true_bool: #@ True
+#! // Nested (JSON)
+nested_map: #@ {"key1": "value1", "key2": "value2"}
+
+#! setting the value of a YAML document node works as well
+--- #@ [1, "item1", {"key1": "value1"}]
+
+---
+
+#! ## 'FOR' Loops
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/playground/basics/example-for/for.yml
+
+array:
+#@ for j in range(0,4):
+- item: #@ j
+#@ end
+
+#! similar to ifs, for/end annotations apply only to a single node
+array_with_data:
+#@ for/end val in [1,5,{"key":"val"}]:
+- item: #@ val
+
+array_with_index:
+#@ arr = [1,5,{"key":"val"}]
+#@ for i in range(len(arr)):
+- val: #@ arr[i]
+  index: #@ i
+#@ end
+
+PN_array:
+#@ PN_array = ["Ami", "Bob", "Cheryl", "Dave"] 
+#@ for name in PN_array:
+- name: #@ name
+  name_2: #@ name.upper()
+  #@yaml/text-templated-strings
+  name_3: "Name: (@= name @) ..."
+#@ end
