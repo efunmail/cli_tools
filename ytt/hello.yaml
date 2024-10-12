@@ -1,6 +1,11 @@
 #! $$ ytt -f hello.yaml -f hello-values.yaml -v msg='my str'
 #! #         ==========    -----------------    ------------
 
+
+#@ myid = 'abc123'
+myid: #@ myid
+
+
 #! ## Data VALUES
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/config.yml
 
@@ -22,9 +27,12 @@ my_msg__format: #@ "My message is: {}" .format(data.values.msg)
 #! - `--data-values-file`
 
 
-#! TODO: `(@= "..." @)` https://carvel.dev/ytt/docs/v0.50.x/ytt-text-templating/
-strings:
-  str_1: Hello (@= " there!" @)
+#! ## TEMPLATED Strings `(@= "..." @)`- https://carvel.dev/ytt/docs/v0.50.x/ytt-text-templating/
+#@ var_1 = "again..."
+#@yaml/text-templated-strings
+templated_strings:
+  str_1: Hello (@= "there!" @)
+  str_2: Hello (@= var_1 @)
 
 
 cmd: #! TODO: starlark's functions ??
