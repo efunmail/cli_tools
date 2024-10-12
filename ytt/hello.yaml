@@ -1,0 +1,35 @@
+#! $$ ytt -f THIS_FILE.yaml
+
+#! ## DATATYPES
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/playground/basics/example-datatypes/datatypes.yml
+
+#! // `None` (`null`); `True` (`true`)
+nullz: #@ None
+true_bool: #@ True
+#! // Nested (JSON)
+nested_map: #@ {"key1": "value1", "key2": "value2"}
+
+#! setting the value of a YAML document node works as well
+--- #@ [1, "item1", {"key1": "value1"}]
+
+---
+
+#! ## 'FOR' Loops
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/playground/basics/example-for/for.yml
+
+array:
+#@ for j in range(0,4):
+- item: #@ j
+#@ end
+
+#! similar to ifs, for/end annotations apply only to a single node
+array_with_data:
+#@ for/end val in [1,5,{"key":"val"}]:
+- item: #@ val
+
+array_with_index:
+#@ arr = [1,5,{"key":"val"}]
+#@ for i in range(len(arr)):
+- val: #@ arr[i]
+  index: #@ i
+#@ end
