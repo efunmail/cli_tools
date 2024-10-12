@@ -165,11 +165,16 @@ array_with_index:
 
 Names_Array:
 #@ PN_array = ["Ami", "Bob", "Cheryl", "Dave"] 
-#! #@ for name in PN_array: # // OKAY
 
+#! #@ for name in PN_array: # // OKAY
 #@ for name in data.values.names_array: # // OKAY
 - name: #@ name
   name_2: #@ name.upper()
   #@yaml/text-templated-strings
   name_3: "Name: (@= name @) ..."
 #@ end
+
+Names_Array_nth: #@ PN_array[2]
+
+PN_Comprehension:
+  names__: #@ ' | '.join(['"'+n+'"' for n in PN_array])
