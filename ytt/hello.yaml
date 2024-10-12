@@ -4,9 +4,14 @@
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/config.yml
 
 #@ load("@ytt:data", "data")
-my_msg: #@ data.values.msg
+my_msg: #@ "My message is: " + data.values.msg
+my_msg__format: #@ "My message is: {}" .format(data.values.msg)
 #!bool: #@ data.values.bool
 #!int: #@ data.values.int
+
+cmd: #! TODO: starlark's functions ??
+  #! `sh()` - https://github.com/bazelbuild/starlark/issues/91
+  #! ls: #@ sh("ls -al").stdout.split()
 
 #! ## Data TYPES
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/playground/basics/example-datatypes/datatypes.yml
