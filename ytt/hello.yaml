@@ -162,9 +162,12 @@ array_with_index:
   index: #@ i
 #@ end
 
-PN_array:
+
+Names_Array:
 #@ PN_array = ["Ami", "Bob", "Cheryl", "Dave"] 
-#@ for name in PN_array:
+#! #@ for name in PN_array: # // OKAY
+
+#@ for name in data.values.names_array: # // OKAY
 - name: #@ name
   name_2: #@ name.upper()
   #@yaml/text-templated-strings
