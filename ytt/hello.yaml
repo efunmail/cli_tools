@@ -1,4 +1,5 @@
-#! $$ ytt -f THIS_FILE.yaml -v msg='my str'
+#! $$ ytt -f hello.yaml -f hello-values.yaml -v msg='my str'
+#! #         ==========    -----------------    ------------
 
 #! ## Data VALUES
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/config.yml
@@ -6,9 +7,19 @@
 #@ load("@ytt:data", "data")
 
 #! ** Text Templating - https://carvel.dev/ytt/docs/v0.50.x/ytt-text-templating/#inside-yaml-strings
-msg: #@ data.values.msg or "some default"
+msg: #@ data.values.msg
 #!my_msg: #@ "My message is: " + (data.values.msg or "some default")
 my_msg__format: #@ "My message is: {}" .format(data.values.msg)
+
+#! ## Data VALUES...
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/run.sh
+#!
+#! - `--data-value-yaml`
+#!
+#! - `--data-value-env`
+#! - `--data-value-env-yaml`
+#!
+#! - `--data-values-file`
 
 
 #! TODO: `(@= "..." @)` https://carvel.dev/ytt/docs/v0.50.x/ytt-text-templating/
