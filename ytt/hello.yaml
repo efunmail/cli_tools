@@ -1,6 +1,14 @@
-#! $$ ytt -f THIS_FILE.yaml
+#! $$ ytt -f THIS_FILE.yaml -v string='my str'
 
-#! ## DATATYPES
+#! ## Data VALUES
+#! ** https://github.com/carvel-dev/ytt/blob/develop/examples/data-values/config.yml
+
+#@ load("@ytt:data", "data")
+string: #@ data.values.string
+#!bool: #@ data.values.bool
+#!int: #@ data.values.int
+
+#! ## Data TYPES
 #! ** https://github.com/carvel-dev/ytt/blob/develop/examples/playground/basics/example-datatypes/datatypes.yml
 
 #! // `None` (`null`); `True` (`true`)
