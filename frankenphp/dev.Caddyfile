@@ -15,18 +15,29 @@
 
   # // `handle_path` & `handle` - REF: https://caddyserver.com/docs/caddyfile/directives/handle_path
 
-  #           ______
+  #           _______ 
   handle_path /mydir* {
     # // EXAMPLE (basic) server: `python3 -m http.server -b 127.0.0.1 5311` 
     reverse_proxy 127.0.0.1:5311
     #             --------------
   }
 
-  #           ______
+  #           _______ 
   handle_path /flask* {
     # // Flask HELLO: `FLASK_APP=hello.py flask run` - https://flask.palletsprojects.com/en/3.0.x/quickstart/ 
     reverse_proxy 127.0.0.1:5000
     #             --------------
+  }
+
+  # ** [SPA] Single-Page App
+  #           ______
+  handle_path /vue* {
+    # ** REDIRECT with `try_files`
+    # // https://caddy.community/t/how-to-config-try-files/10657/2
+    root * /var/www/secure/vue
+    #try_files {path} {path}/ routes.html
+    try_files {path} routes.html
+    file_server
   }
 
   handle {
