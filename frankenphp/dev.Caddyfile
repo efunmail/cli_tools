@@ -15,10 +15,17 @@
 
   # // `handle_path` & `handle` - REF: https://caddyserver.com/docs/caddyfile/directives/handle_path
 
+  #           ______
   handle_path /mydir* {
-  #           =======
     # // EXAMPLE (basic) server: `python3 -m http.server -b 127.0.0.1 5311` 
     reverse_proxy 127.0.0.1:5311
+    #             --------------
+  }
+
+  #           ______
+  handle_path /flask* {
+    # // Flask HELLO: `FLASK_APP=hello.py flask run` - https://flask.palletsprojects.com/en/3.0.x/quickstart/ 
+    reverse_proxy 127.0.0.1:5000
     #             --------------
   }
 
@@ -26,6 +33,7 @@
     # Set the webroot to the public/ directory
     #root * public/
     root * /var/www/secure/
+    #      ================
 
     # Enable compression (optional)
     encode zstd br gzip
