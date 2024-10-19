@@ -30,15 +30,15 @@
   }
 
   # ** [SPA] Single-Page App
-  #           ______
-  handle_path /vue* {
+  #           __________
+  handle_path /spa-vue* {
     # ** REDIRECT with `try_files`
     # // https://caddy.community/t/how-to-config-try-files/10657/2
-    root * /var/www/secure/vue
+    root * /var/www/secure/spa-vue
     #try_files {path} {path}/ routes.html
     try_files {path} routes.html
 
-    #file_server
+    file_server
   }
 
   handle {
