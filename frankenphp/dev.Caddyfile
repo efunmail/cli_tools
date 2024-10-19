@@ -9,9 +9,9 @@
   # order php_server before file_server
 }
 
-# localhost:8083 {  # // TLS
-my-dev.localhost:8083 {  # // TLS - httpS://my-dev.localhost:8083/mydir
-:8083 {                  # //       http://localhost:8083/mydir/
+#localhost:8083 {  # // TLS
+#my-dev.localhost:8083 {  # // TLS - httpS://my-dev.localhost:8083/mydir
+:8083 {                   # //       http://localhost:8083/mydir/
 
   # // `handle_path` & `handle` - REF: https://caddyserver.com/docs/caddyfile/directives/handle_path
 
