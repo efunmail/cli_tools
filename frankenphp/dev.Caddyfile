@@ -37,7 +37,8 @@
     root * /var/www/secure/vue
     #try_files {path} {path}/ routes.html
     try_files {path} routes.html
-    file_server
+
+    #file_server
   }
 
   handle {
