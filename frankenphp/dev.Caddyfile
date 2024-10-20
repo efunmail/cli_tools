@@ -1,5 +1,8 @@
 # $$      frankenphp -c dev.Caddyfile run
 # $$ sudo frankenphp -c dev.Caddyfile run  # // for TLS/httpS
+#
+# $$ REMOTE_USER=v1_uun frankenphp -c dev.Caddyfile run  # // for UUN
+
 
 # // https://frankenphp.dev/docs/laravel/
 {
@@ -41,17 +44,44 @@
     file_server
   }
 
-  handle {
-    # Set the webroot to the public/ directory
-    #root * public/
-    root * /var/www/secure/
-    #      ================
 
-    # Enable compression (optional)
-    encode zstd br gzip
+  # $$ wget https://github.com/cakephp/cakephp/releases/download/5.1.1/cakephp-5-1-1.zip
 
-    # Execute PHP files from the public/ directory and serve assets
+  # ** [CAKE] TODO: WIP...
+  handle_path /cakephp-511* {
+    # ** REDIRECT with `try_files`
+    root * /var/www/secure/cakephp-511
+ 
+    # !! Suggestion: Create the class Cakephp511Controller below
+    # !!             in file: src/Controller/Cakephp511Controller.php
+    # // TODO: *strip* `path`
+    try_files {path} {path}/ webroot/index.php
+
     php_server
+  }
+
+  handle {
+    # ** [CAKE] TODO: WIP...
+    # handle_path /cakephp-511* {
+    #   # ** REDIRECT with `try_files`
+    #   root * /var/www/secure/cakephp-511
+    #   try_files {path} {path}/ webroot/index.php
+    #
+    #   php_server
+    # }
+
+    handle {
+      # Set the webroot to the public/ directory
+      #root * public/
+      root * /var/www/secure/
+      #      ================
+
+      # Enable compression (optional)
+      encode zstd br gzip
+
+      # Execute PHP files from the public/ directory and serve assets
+      php_server
+    }
   }
 }
 
