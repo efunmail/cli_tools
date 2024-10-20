@@ -33,6 +33,7 @@
     #             --------------
   }
 
+
   # ** [SPA] Single-Page App
   #           __________
   handle_path /spa-vue* {
@@ -45,6 +46,23 @@
     file_server
   }
 
+  # ** [PHP] 'REST API' service
+  # handle_path /sbsapi-dmp* {
+  #   root * /var/www/secure/sbsapi-dmp
+  #   #try_files {path} {path}/ 
+  #   #try_files {path} {path}/ index.php  #main.php
+  #
+  #   # # // https://github.com/dunglas/frankenphp/issues/554
+  #   # "If the requested file does not exist, try index files"
+  #   @indexFiles file {
+  #     try_files {path} {path}/ main.php
+  #     split_path .php
+  #   }
+  #   rewrite @indexFiles {http.matchers.file.relative}
+  #
+  #   php_server
+  #   # ========
+  # }
 
   # $$ wget https://github.com/cakephp/cakephp/releases/download/5.1.1/cakephp-5-1-1.zip
 
