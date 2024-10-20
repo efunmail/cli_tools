@@ -16,6 +16,7 @@
 #my-dev.localhost:8083 {  # // TLS - httpS://my-dev.localhost:8083/mydir
 :8083 {                   # //       http://localhost:8083/mydir/
 
+  # // SPA - REF: https://caddyserver.com/docs/caddyfile/patterns#single-page-apps-spas
   # // `handle_path` & `handle` - REF: https://caddyserver.com/docs/caddyfile/directives/handle_path
 
   #           _______ 
@@ -48,27 +49,40 @@
   # $$ wget https://github.com/cakephp/cakephp/releases/download/5.1.1/cakephp-5-1-1.zip
 
   # ** [CAKE] TODO: WIP...
-  handle_path /cakephp-511* {
+  handle /__cakephp-511* {
     # ** REDIRECT with `try_files`
     root * /var/www/secure/cakephp-511
  
-    # !! Suggestion: Create the class Cakephp511Controller below
-    # !!             in file: src/Controller/Cakephp511Controller.php
-    # // TODO: *strip* `path`
+    # !! Suggestion: "Create the class Cakephp511Controller below
+    # !!             in file: src/Controller/Cakephp511Controller.php"
     try_files {path} {path}/ webroot/index.php
+    
 
+    # // https://github.com/dunglas/frankenphp/issues/554
+    # "If the requested file does not exist, try index files"
+    # @indexFiles file {
+    #   try_files {path} {path}/index.php webroot/index.php
+    #   split_path .php
+    # }
+    # rewrite @indexFiles {http.matchers.file.relative}
+    
     php_server
   }
 
+
   handle {
     # ** [CAKE] TODO: WIP...
-    # handle_path /cakephp-511* {
-    #   # ** REDIRECT with `try_files`
-    #   root * /var/www/secure/cakephp-511
-    #   try_files {path} {path}/ webroot/index.php
-    #
-    #   php_server
-    # }
+    handle_path /__cakephp-511* {
+      # ** REDIRECT with `try_files`
+      root * /var/www/secure/cakephp-511/webroot
+      try_files {path} {path}/ index.php
+
+      php_server
+    }
+
+    # // ALT: https://book.cakephp.org/5/en/installation.html#i-can-t-use-url-rewriting
+    # //      In `config/app.php`, ensure: `'baseUrl' => env('SCRIPT_NAME')`
+ 
 
     handle {
       # Set the webroot to the public/ directory
