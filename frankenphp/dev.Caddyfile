@@ -98,16 +98,44 @@
   }
   
 
-  #handle /cakephp-511* {
-   	uri strip_prefix /cakephp-511/index.php
+  #handle_path /cakephp-511* {
+  handle /__cakephp-511* {
+  #      ============
+   	uri strip_prefix /cakephp-511
+
+    root * /var/www/secure/cakephp-511/webroot
+    try_files index.php/{path}
+
+    # # // TODO: OKAY for `/cakephp-511/index.php`
+    # # // https://github.com/dunglas/frankenphp/issues/554
+    # "If the requested file does not exist, try index files"
+    # @indexFiles file {
+    #   # try_files {path} {path}/index.php webroot/index.php
+    #   #try_files {path} {path}/ index.php
+    #
+    #   # ?? https://gist.github.com/eberfreitas/8b0328595ca1ed6263c7
+    #   try_files {path} {path}/ index.php/{path}&{query}
+    #   split_path .php
+    # }
+    # #rewrite @indexFiles {http.matchers.file.relative}
+    # rewrite @indexFiles index.php/{path}&{query}
+ 
+    # // REF: https://caddyserver.com/docs/caddyfile/directives/rewrite
+    #rewrite * index.php/{path}&{query}
+
+    php_server
+  } 
+
   handle {
     # ** [CAKE] TODO: WIP...
     handle_path /__cakephp-511* {
       root * /var/www/secure/cakephp-511
 
       # ** REDIRECT with `try_files`
-      try_files {path} {path}/ webroot/index.php
+      #try_files {path} {path}/ webroot/index.php
       
+      rewrite * webroot/index.php/{path} #&{query}
+
       php_server
     }
 
