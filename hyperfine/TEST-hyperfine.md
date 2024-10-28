@@ -14,7 +14,7 @@ https://github.com/efunmail/cli_tools/blob/main/srgn/TEST-srgn.md
 hyperfine --runs 3 -L THREADS 1,2,4,8,16  "srgn --go strings '\d+' --threads {THREADS} > srgn--go-strings-NUM--threads-{THREADS}-hyper.txt"
 ```
 
-- Output:
+#### Output:
 
 ```
 Benchmark 1: srgn --go strings '\d+' --threads 1 > srgn--go-strings-NUM--threads-1-hyper.txt
@@ -46,3 +46,13 @@ Summary
     3.49 ± 0.06 times faster than srgn --go strings '\d+' --threads 2 > srgn--go-strings-NUM--threads-2-hyper.txt
     6.84 ± 0.03 times faster than srgn --go strings '\d+' --threads 1 > srgn--go-strings-NUM--threads-1-hyper.txt
 ```
+
+- NOTE:
+
+> Warning: Statistical outliers were detected.
+
+> Consider re-running this benchmark on a quiet system
+> without any interferences from other programs.
+
+> It might help to use the `--warmup` or `--prepare` options.
+ 
