@@ -12,9 +12,13 @@ desc = 'Edit file with HELIX...'
 [[manager.prepend_keymap]]
 on   = [ "f", "c" ]
 # // `read -s` - https://unix.stackexchange.com/a/293941
-run  = 'shell --block --confirm "find . -type f | wc -l ; sleep 2"'
+run  = 'shell --block --confirm "find . -type f | wc -l | less"'
 desc = 'COUNT files'
 
+[[manager.prepend_keymap]]
+on   = [ "f", "d" ]
+run  = 'shell --block --confirm "find . -type f | grep -v /tmp/ | xargs stat --format %Y\ :%y\ %n 2> /dev/null | sort -nr | cut -d: -f2- | less"'
+desc = 'DATES of files'
 
 # // https://gitee.com/DreamMaoMao/fg.yazi#usage
 
