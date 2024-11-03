@@ -4,25 +4,32 @@
 [[manager.prepend_keymap]]
 on   = [ "e" ]
 # // https://github.com/sxyazi/yazi/issues/591
-# // REF: https://yazi-rs.github.io/docs/tips/#dropping-to-the-shell
-run  = 'shell "~/helix/2407/hx $@" --block --confirm'
+# // - https://yazi-rs.github.io/docs/tips/#dropping-to-the-shell
+# // REF: `shell` - https://yazi-rs.github.io/docs/configuration/keymap/#manager.shell
+run  = 'shell --block --confirm "~/helix/2407/hx $@"'
 desc = 'Edit file with HELIX...'
+
+[[manager.prepend_keymap]]
+on   = [ "f", "c" ]
+# // `read -s` - https://unix.stackexchange.com/a/293941
+run  = 'shell --block --confirm "find . -type f | wc -l ; sleep 2"'
+desc = 'COUNT files'
 
 
 # // https://gitee.com/DreamMaoMao/fg.yazi#usage
 
 [[manager.prepend_keymap]]
-on   = [ "f","g" ]
+on   = [ "s", "g" ]
 run  = "plugin fg"
 desc = "find file by content (fuzzy match)"
 
 [[manager.prepend_keymap]]
-on   = [ "f","G" ]
+on   = [ "s", "G" ]
 run  = "plugin fg --args='rg'"
 desc = "find file by content (ripgrep match)"
 
 [[manager.prepend_keymap]]
-on   = [ "f","f" ]
+on   = [ "s", "f" ]
 run  = "plugin fg --args='fzf'"
 desc = "find file by filename"
 
