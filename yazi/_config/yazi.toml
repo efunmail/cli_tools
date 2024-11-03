@@ -4,7 +4,6 @@ ratio = [1,2,5]
 [plugin]
 prepend_previewers = [
   #{ name = "*.md", run = "glow" },
-
   { mime = "text/markdown", run = "glow" },
 
   { mime = "text/csv", run = "miller"},
@@ -23,3 +22,10 @@ edit = [
 #   # // Open file with HELIX...
 #   { run = '~/helix/2407/hx "$@"', desc = "Helix", block = true, for = "unix" },
 # ]
+
+
+# // REF: https://yazi-rs.github.io/docs/tips/#bulk-editor
+# // NOTE: "requires Yazi *nightly* version"
+[[opener.bulk-rename]]
+run   = 'hx "$@"'
+block = true
