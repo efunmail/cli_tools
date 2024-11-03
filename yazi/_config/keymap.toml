@@ -12,7 +12,13 @@
 [[manager.prepend_keymap]]
 on   = [ "p" ]
 run  = 'shell --block --confirm "vi -R $@"'
-desc = 'PreVIEW file with vi (in READ-ONLY mode)'
+desc = 'PreVIEW file with VI (in READ-ONLY mode)'
+[[manager.prepend_keymap]]
+on   = [ "P" ]
+# // NOTE: BAT *sometimes* does NOT work??
+run  = 'shell --block --confirm "bat $@"'
+desc = 'PreVIEW file with BAT'
+
 
 [[manager.prepend_keymap]]
 on   = [ "f", "c" ]
