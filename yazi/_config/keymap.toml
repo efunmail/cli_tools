@@ -18,7 +18,11 @@ desc = 'COUNT files'
 [[manager.prepend_keymap]]
 on   = [ "f", "d" ]
 run  = 'shell --block --confirm "find . -type f | grep -v /tmp/ | xargs stat --format %Y\ :%y\ %n 2> /dev/null | sort -nr | cut -d: -f2- | less"'
-desc = 'DATES of files'
+desc = 'DATES of files (*excl.* "tmp/" dirs)'
+[[manager.prepend_keymap]]
+on   = [ "f", "D" ]
+run  = 'shell --block --interactive --cursor=25 "find . -type f | grep -v /tmp/ | xargs stat --format %Y\ :%y\ %n 2> /dev/null | sort -nr | cut -d: -f2- | less"'
+desc = 'DATES of files (interactive...)'
 
 # // https://gitee.com/DreamMaoMao/fg.yazi#usage
 
