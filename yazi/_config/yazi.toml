@@ -14,10 +14,12 @@ prepend_previewers = [
 [opener]
 edit = [
   # // OPEN file: `-R` for read-only
-  { run = '${EDITOR:-vi} -R "$@"', desc = "$EDITOR", block = true, for = "unix" },
+  #{ run = '${EDITOR:-vi} -R "$@"', desc = "$EDITOR", block = true, for = "unix" },
+
+  { run = '~/helix/2407/hx "$@"', desc = "EDIT with Helix...", block = true, for = "unix" },
 ]
 
-# // OKAY: Override `reveal` action
+# // ALT: *Override* `reveal` action
 # reveal = [
 #   # // Open file with HELIX...
 #   { run = '~/helix/2407/hx "$@"', desc = "Helix", block = true, for = "unix" },
