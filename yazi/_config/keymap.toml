@@ -1,13 +1,18 @@
 # // INFO: PRESET keymap: https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/keymap.toml
 
 
-[[manager.prepend_keymap]]
-on   = [ "e" ]
+#[[manager.prepend_keymap]]
+#on   = [ "e" ]
 # // https://github.com/sxyazi/yazi/issues/591
 # // - https://yazi-rs.github.io/docs/tips/#dropping-to-the-shell
 # // REF: `shell` - https://yazi-rs.github.io/docs/configuration/keymap/#manager.shell
-run  = 'shell --block --confirm "~/helix/2407/hx $@"'
-desc = 'Edit file with HELIX...'
+#run  = 'shell --block --confirm "~/helix/2407/hx $@"'
+#desc = 'Edit file with HELIX...'
+
+[[manager.prepend_keymap]]
+on   = [ "p" ]
+run  = 'shell --block --confirm "vi -R $@"'
+desc = 'PreVIEW file with vi (in READ-ONLY mode)'
 
 [[manager.prepend_keymap]]
 on   = [ "f", "c" ]
