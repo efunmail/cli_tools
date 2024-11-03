@@ -1,3 +1,14 @@
+# // INFO: PRESET keymap: https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/keymap.toml
+
+
+[[manager.prepend_keymap]]
+on   = [ "e" ]
+# // https://github.com/sxyazi/yazi/issues/591
+# // REF: https://yazi-rs.github.io/docs/tips/#dropping-to-the-shell
+run  = 'shell "~/helix/2407/hx $@" --block --confirm'
+desc = 'Edit file with HELIX...'
+
+
 # // https://gitee.com/DreamMaoMao/fg.yazi#usage
 
 [[manager.prepend_keymap]]
@@ -14,3 +25,4 @@ desc = "find file by content (ripgrep match)"
 on   = [ "f","f" ]
 run  = "plugin fg --args='fzf'"
 desc = "find file by filename"
+
