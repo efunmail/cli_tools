@@ -9,3 +9,11 @@ prepend_previewers = [
 
   { mime = "text/csv", run = "miller"},
 ]
+
+
+# // REF: https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/yazi.toml
+[opener]
+edit = [
+  # // OPEN file: `-R` for read-only
+  { run = '${EDITOR:-vi} -R "$@"', desc = "$EDITOR", block = true, for = "unix" },
+]
