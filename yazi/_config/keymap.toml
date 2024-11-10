@@ -15,8 +15,9 @@ run  = 'shell --block --confirm "vi -R $@"'
 desc = 'PreVIEW file with VI (in READ-ONLY mode)'
 [[manager.prepend_keymap]]
 on   = [ "P" ]
-# // NOTE: BAT *sometimes* does NOT work??
-run  = 'shell --block --confirm "bat $@"'
+# !! NOTE: BAT *sometimes* does NOT work??
+# // `-p` for NO decorations (ie. line numbers, borders, etc)
+run  = 'shell --block --confirm "bat -p $@"'
 desc = 'PreVIEW file with BAT'
 
 
