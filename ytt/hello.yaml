@@ -1,5 +1,5 @@
-#! $$ ytt -f hello.yaml -f hello-values.yaml -v msg='my str'
-#! #         ==========    -----------------    ------------
+# $$ ytt --ignore-unknown-comments -f hello.yaml -f hello-values.yaml -v msg='my str'
+#                                     ==========    -----------------    ------------
 
 
 #@ myid = 'abc123'
