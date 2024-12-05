@@ -1,0 +1,25 @@
+# ## CONVERT to 'shell/INI' format (eg. for Bash)
+# // RUN: yq _zp_proj.toml -o s
+# // RUN: yq _zp_proj.toml -o shell
+
+# // INFO: for 'shell/INI' format, *keys* become ZP_REMOTE_DIR, etc
+[ZP]
+
+Message = 'hello'
+NUM = 123
+
+# // TODO: _UUN and _DIR
+REMOTE_DIR = "_UUN@domain:_DIR"
+
+# // INFO: for INI, *array keys* become ZP_FILES_0, etc
+# // TODO: in YAML, use `YTT` and `join()`...
+#                        ~~~~~~~~~~~~~~~~~~~~
+FILES = [
+  "ldap___.json",
+  "pre___.json",
+  "staff___.json",
+]
+
+
+[section_a]
+msg = 'hello'
