@@ -1,0 +1,22 @@
+meta:
+  catgs:
+  - data   # // EXAMPLES: miller, jq, yq
+  - dbase  # // EXAMPLES: duckdb
+  - files  # // EXAMPLES: yazi
+  - server # // EXAMPLES: caddy, frankenphp
+
+  langs:
+  - json
+  - yaml
+
+  - sql
+
+  - python
+  - php
+
+  - javascript
+  - typescript
+
+  - golang
+  - rust
+
