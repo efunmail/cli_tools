@@ -20,6 +20,15 @@ msg: *"Hiya!" | string @tag(MSG)
 
 BIN_DIR: *"/usr/local/bin" | string @tag(BIN_DIR)
 
+meta:
+  catgs: [...string]
+  langs: [...string]
+
+// ** Define ('enum') DISJUNCTION using `or` - with default `[0]` 
+#CatgEnum: *meta.catgs[0] | or(meta.catgs[1:])
+#LangEnum: *meta.langs[0] | or(meta.langs[1:])
+
+
 #VersionStruct: {
   ver: string
   //date: string
@@ -29,7 +38,7 @@ BIN_DIR: *"/usr/local/bin" | string @tag(BIN_DIR)
 
 #ToolStruct: {
   id:      string // TODO: regex (alphanumeric)
-  catg:    *"CATEGORY" | string // TODO: enum
+  catg:    #CatgEnum // *"CATEGORY" | string // TODO: enum
   repo:    string
   desc:    string
   versions: [...#VersionStruct]
