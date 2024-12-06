@@ -6,8 +6,8 @@ meta:
   - server # // EXAMPLES: caddy, frankenphp
 
   langs:
-  - json
   - yaml
+  - json
 
   - sql
 
