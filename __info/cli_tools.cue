@@ -37,8 +37,8 @@ meta:
 }
 
 #ToolStruct: {
-  id:      string // TODO: regex (alphanumeric)
-  catg:    #CatgEnum // *"CATEGORY" | string // TODO: enum
+  id:      string & =~"[a-z][_a-z0-9]+" 
+  catg:    #CatgEnum
   repo:    string
   desc:    string
   versions: [...#VersionStruct]
