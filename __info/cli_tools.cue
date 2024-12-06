@@ -25,8 +25,38 @@ meta:
   langs: [...string]
 
 // ** Define ('enum') DISJUNCTION using `or` - with default `[0]` 
+// REF: https://cuelang.org/docs/howto/use-the-built-in-function-or/
 #CatgEnum: *meta.catgs[0] | or(meta.catgs[1:])
 #LangEnum: *meta.langs[0] | or(meta.langs[1:])
+
+
+
+// TODO: separate file - cli_tools-INSTALL.cue ??
+//#InstallStruct: {
+//  kind: "TAR" | "ZIP"    // TODO: enum
+//  dir: *1 | int
+//  do_install: string
+//}
+
+// ** "Disjunctions of Structs"
+// REF: https://cuelang.org/docs/tour/types/sumstruct/
+#InstallStruct: {
+  kind: "TAR"
+  dir: *1 | int
+  do_install: """
+    tar xf ARC_FILE --directory \(dir) ...
+
+    sudo cp -p PATH/EXE \(BIN_DIR)/EXE
+    """
+} | {
+  kind: "ZIP"
+  dir: *1 | int
+  do_install: """
+    unzip ARC_FILE ... # \(dir)
+
+    sudo cp -p PATH/EXE \(BIN_DIR)/EXE
+    """
+}
 
 
 #VersionStruct: {
@@ -34,6 +64,7 @@ meta:
   //date: string
   uri: string
   inst_kind: *"DEFAULT_KIND" | string  // TODO: enum
+  install: #InstallStruct
 }
 
 #ToolStruct: {
@@ -48,5 +79,4 @@ meta:
 tools:
   [ID=_]: #ToolStruct & {
     id:      ID
-    //install: "sudo cp -p PATH/EXE \(BIN_DIR)/EXE"
   }
