@@ -2,10 +2,21 @@ tools:
   cue:
     repo: cuelang...
     desc: Cue...
+    versions:
+    - ver: "123"
+      uri: "https..."
+    - ver: "120"
+      uri: "https..."
   mlr:
     repo: mlr...
     desc: Miller...
+    versions:
+    - ver: "123"
+      uri: "https..."
   jq:
     catg: json
     repo: jq...
     desc: jq...
+    versions:
+    - ver: "123"
+      uri: "https..."
