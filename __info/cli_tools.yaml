@@ -5,18 +5,22 @@ tools:
     versions:
     - ver: "123"
       uri: "https..."
+      install: {kind: TAR, dir: 2}
     - ver: "120"
       uri: "https..."
+      install: {kind: TAR, dir: 2}
   mlr:
     repo: mlr...
     desc: Miller...
     versions:
     - ver: "123"
       uri: "https..."
+      install: {kind: ZIP, dir: 3}
   jq:
-    catg: json
+    catg: data
     repo: jq...
     desc: jq...
     versions:
     - ver: "123"
       uri: "https..."
+      install: {kind: TAR}
