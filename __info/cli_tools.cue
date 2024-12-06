@@ -20,16 +20,24 @@ msg: *"Hiya!" | string @tag(MSG)
 
 BIN_DIR: *"/usr/local/bin" | string @tag(BIN_DIR)
 
-#ToolType: {
+#VersionStruct: {
+  ver: string
+  //date: string
+  uri: string
+  inst_kind: *"DEFAULT_KIND" | string  // TODO: enum
+}
+
+#ToolStruct: {
   id:      string // TODO: regex (alphanumeric)
-  catg:    *"CATEGORY" | string
+  catg:    *"CATEGORY" | string // TODO: enum
   repo:    string
   desc:    string
-  install: string // TODO: ...
+  versions: [...#VersionStruct]
+  //install: string // TODO: ...
 }
 
 tools:
-  [ID=_]: #ToolType & {
+  [ID=_]: #ToolStruct & {
     id:      ID
-    install: "sudo cp -p PATH/EXE \(BIN_DIR)/EXE"
+    //install: "sudo cp -p PATH/EXE \(BIN_DIR)/EXE"
   }
