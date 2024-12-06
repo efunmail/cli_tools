@@ -65,6 +65,7 @@ meta:
   uri: string
   inst_kind: *"DEFAULT_KIND" | string  // TODO: enum
   install: #InstallStruct
+
 }
 
 #ToolStruct: {
@@ -74,9 +75,17 @@ meta:
   desc:    string
   versions: [...#VersionStruct]
   //install: string // TODO: ...
+
+  _WIP0: string
 }
 
 tools:
-  [ID=_]: #ToolStruct & {
+  // ** Define ALIAS - `T=...`
+  // REF: https://cuelang.org/docs/tour/expressions/dynamic-fields/
+  [ID=_]: T=#ToolStruct & {
     id:      ID
+
+    _WIP0: """
+      \(T.versions[0].install.kind)
+      """
   }
