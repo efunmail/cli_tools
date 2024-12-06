@@ -22,12 +22,14 @@ BIN_DIR: *"/usr/local/bin" | string @tag(BIN_DIR)
 
 #ToolType: {
   id:      string // TODO: regex (alphanumeric)
-  msg:     string
-  install: string
+  catg:    *"CATEGORY" | string
+  repo:    string
+  desc:    string
+  install: string // TODO: ...
 }
 
-tools: [ID=_]: #ToolType & {
-  id:      ID
-  msg:     "Hello \(id)" + ID
-  install: "sudo cp -p PATH/EXE \(BIN_DIR)/EXE"
-}
+tools:
+  [ID=_]: #ToolType & {
+    id:      ID
+    install: "sudo cp -p PATH/EXE \(BIN_DIR)/EXE"
+  }
