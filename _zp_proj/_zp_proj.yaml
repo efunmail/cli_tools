@@ -1,0 +1,16 @@
+ZP:
+  Message: hello
+  NUM: 123
+  REMOTE_DIR: _UUN@domain:_DIR
+  FILES:
+    - ldap___.json
+    - pre___.json
+    - staff___.json
+
+  docker:
+    img_base: debian/slim-WIP
+    pkgs:
+    - adb
+    - curl
+    - ffmpeg
+    
