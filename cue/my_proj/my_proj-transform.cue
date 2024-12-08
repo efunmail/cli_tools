@@ -20,13 +20,12 @@ REC=obj_2: {
   
   for k, v in obj 
     if k =~ #ListNameRegex
-      let fieldSepName = "\(k)-sep" { // TODO: DEFINE '-sep'
-      //let sep = REC[fieldSepName] { 
-      //let sep = {if {val, ok := REC[fieldSepName]; ok} {val} else {","}} { 
-      //let sep = (if (1 == 2) "|" else ",") { 
-      //let sep = {true: "|", false: ","}[if 1 == 2 ] { 
-        (strings.Split(k, "-")[0]): strings.Join(v, REC[fieldSepName]) // ","
-        //(strings.Split(k, "-")[0]): strings.Join(v, (if val, ok := REC[fieldSepName]; ok {val} else {","}))
-        //(strings.Split(k, "-")[0]): if {1 == 1} {1}
+      let sep0 = REC[k + #ListSepSuffix]
+      let sep = [ // 'switch' - https://cuelang.org/docs/howto/write-a-type-switch/
+        if (sep0 & string) != _|_ {sep0},
+        if (sep0 & string) == _|_ {","}, // DEFAULT: "," if sep0 NOT defined
+      ][0] {
+        (strings.Split(k, "-")[0]):
+          strings.Join(v, sep)
       }
 }
