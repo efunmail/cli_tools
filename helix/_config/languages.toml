@@ -1,0 +1,20 @@
+# // Num of spaces in a 'tab' - https://github.com/helix-editor/helix/issues/2576
+# indent-style = 2
+#indent_style = 2
+
+
+[[language]]
+name = "cue"
+# // https://github.com/helix-editor/helix/blob/master/languages.toml
+# scope = "source.cue"
+# injection-regex = "cue"
+# file-types = ["cue"]
+# roots = ["cue.mod"]
+# auto-format = true
+# comment-token = "//"
+# language-servers = [ "cuelsp" ]
+# indent = { tab-width = 4, unit = "\t" }
+# formatter = { command = "cue", args = ["fmt", "-"] }
+
+auto-format = false
+indent = { tab-width = 2, unit = "  " }
