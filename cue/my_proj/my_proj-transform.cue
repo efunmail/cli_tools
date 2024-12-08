@@ -6,14 +6,27 @@ package my_proj
 //    cue eval my_proj-schema* my_proj-transform* 
 //    cue eval my_proj* 
 
+//    cue export my_proj-schema* my_proj.yaml my_proj-transform -e 'obj_2'
+//    // TODO: can CHANGE obj_2 - using YQ or JQ ??
+
 // ## Run 
 // $$ cue export ... 
 
+import "strings"
 
 
-// TODO: strings.Join(...) - can define in `...-tranform-defs.cue` ??
-//       =================
-obj_2: {
+REC=obj_2: {
   for k, v in obj {(k): v}
   
+  for k, v in obj 
+    if k =~ #ListNameRegex
+      let fieldSepName = "\(k)-sep" { // TODO: DEFINE '-sep'
+      //let sep = REC[fieldSepName] { 
+      //let sep = {if {val, ok := REC[fieldSepName]; ok} {val} else {","}} { 
+      //let sep = (if (1 == 2) "|" else ",") { 
+      //let sep = {true: "|", false: ","}[if 1 == 2 ] { 
+        (strings.Split(k, "-")[0]): strings.Join(v, REC[fieldSepName]) // ","
+        //(strings.Split(k, "-")[0]): strings.Join(v, (if val, ok := REC[fieldSepName]; ok {val} else {","}))
+        //(strings.Split(k, "-")[0]): if {1 == 1} {1}
+      }
 }
