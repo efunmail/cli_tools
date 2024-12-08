@@ -4,6 +4,8 @@ package my_proj
 
 #WordRegex: "^[_a-zA-Z][_a-zA-Z0-9]*$" 
 #ListNameRegex: "-list$"
+
+#ListQuoteSuffix: "-quote"
 #ListSepSuffix: "-sep"
 
 

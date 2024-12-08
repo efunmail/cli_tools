@@ -2,7 +2,8 @@ obj:
   id: 123
   suit: diamond
 
-  "files-list-sep": "|"
+  "files-list-quote": '"'
+  # "files-list-sep": "|"
   "files-list":
   - ~/OD/DIR/ldap.json
   - ~/OD/DIR/PreOracle.json
