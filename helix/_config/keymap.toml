@@ -1,0 +1,54 @@
+# // INFO: PRESET keymap: https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/keymap-default.toml
+
+
+#[[manager.prepend_keymap]]
+#on   = [ "e" ]
+# // https://github.com/sxyazi/yazi/issues/591
+# // - https://yazi-rs.github.io/docs/tips/#dropping-to-the-shell
+# // REF: `shell` - https://yazi-rs.github.io/docs/configuration/keymap/#manager.shell
+#run  = 'shell --block --confirm "~/helix/2407/hx $@"'
+#desc = 'Edit file with HELIX...'
+
+[[manager.prepend_keymap]]
+on   = [ "p" ]
+run  = 'shell --block --confirm "vi -R $@"'
+desc = 'PreVIEW file with VI (in READ-ONLY mode)'
+[[manager.prepend_keymap]]
+on   = [ "P" ]
+# // `--paging=always` for 'single-page' files
+# // `--style=plain` for NO decorations (ie. line numbers, borders, etc)
+run  = 'shell --block --confirm "bat --paging=always --style=plain $@"'
+desc = 'PreVIEW file with BAT'
+
+
+[[manager.prepend_keymap]]
+on   = [ "f", "c" ]
+# // `read -s` - https://unix.stackexchange.com/a/293941
+run  = 'shell --block --confirm "find . -type f | wc -l | less"'
+desc = 'COUNT files'
+
+[[manager.prepend_keymap]]
+on   = [ "f", "d" ]
+run  = 'shell --block --confirm "find . -type f | grep -v /tmp/ | xargs stat --format %Y\ :%y\ %n 2> /dev/null | sort -nr | cut -d: -f2- | less"'
+desc = 'DATES of files (*excl.* "tmp/" dirs)'
+[[manager.prepend_keymap]]
+on   = [ "f", "D" ]
+run  = 'shell --block --interactive --cursor=25 "find . -type f | grep -v /tmp/ | xargs stat --format %Y\ :%y\ %n 2> /dev/null | sort -nr | cut -d: -f2- | less"'
+desc = 'DATES of files (interactive...)'
+
+# // https://gitee.com/DreamMaoMao/fg.yazi#usage
+
+[[manager.prepend_keymap]]
+on   = [ "s", "g" ]
+run  = "plugin fg"
+desc = "find file by content (fuzzy match)"
+
+[[manager.prepend_keymap]]
+on   = [ "s", "G" ]
+run  = "plugin fg --args='rg'"
+desc = "find file by content (ripgrep match)"
+
+[[manager.prepend_keymap]]
+on   = [ "s", "f" ]
+run  = "plugin fg --args='fzf'"
+desc = "find file by filename"
