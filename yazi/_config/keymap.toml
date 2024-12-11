@@ -11,14 +11,14 @@
 
 [[manager.prepend_keymap]]
 on   = [ "p" ]
-run  = 'shell --block --confirm "vi -R $@"'
-desc = 'PreVIEW file with VI (in READ-ONLY mode)'
+# // `--paging=always` for 'single-page' files
+# // `--style=plain` for NO decorations (ie. line numbers, borders, etc)
+run  = 'shell --block --confirm "bat --paging=always --style=plain $@ || vi -R $@"'
+desc = 'PreVIEW file with BAT or VI (in READ-ONLY mode)'
 [[manager.prepend_keymap]]
 on   = [ "P" ]
-# !! NOTE: BAT *sometimes* does NOT work??
-# // `-p` for NO decorations (ie. line numbers, borders, etc)
-run  = 'shell --block --confirm "bat -p $@"'
-desc = 'PreVIEW file with BAT'
+run  = 'shell --block --confirm "bat --paging=always $@"'
+desc = 'PreVIEW file with BAT (with decorations)'
 
 
 [[manager.prepend_keymap]]
