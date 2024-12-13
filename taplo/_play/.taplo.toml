@@ -1,0 +1,48 @@
+# ## Taplo CLI
+# $$ taplo check --schema file://$PWD/ast-grep-schema.json pn-ast.toml
+
+
+# ## Helix - `languages.toml`
+# [[language]]
+# name = "toml"
+# // `roots` - https://github.com/tamasfe/taplo/issues/580
+# roots = ["."]
+
+
+[[rule]]
+include = ["**/*-ast.toml"]
+
+# // https://github.com/tamasfe/taplo/issues/580
+# // - `[schema]`: https://taplo.tamasfe.dev/configuration/file.html#schema
+
+# // `[rule.schema]`: https://github.com/tamasfe/taplo/issues/387#issuecomment-1900634473
+[rule.schema]
+# // https://github.com/ast-grep/ast-grep/blob/main/schemas/rule.json
+path = "ast-grep.schema.json"
+enabled = true
+
+
+[[rule]]
+include = ["**/*-simple.toml"]
+
+[rule.schema]
+path = "simple-schema.json"
+enabled = true
+
+
+[[rule]]
+include = ["**/*-relplz.toml"]
+
+[rule.schema]
+# // `release-plz` - https://github.com/tamasfe/taplo/issues/514
+path = "release-plz-schema.json"
+enabled = true
+
+
+[[rule]]
+include = ["**/*-mydata.toml"]
+
+[rule.schema]
+# // $ cue export mydata-schema.cue --out openapi > ...
+path = "mydata-schema-openapi-001-WIP-a.json"
+enabled = true
