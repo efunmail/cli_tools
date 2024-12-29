@@ -1,24 +1,25 @@
 # // INFO: PRESET keymap: https://github.com/sxyazi/yazi/blob/main/yazi-config/preset/keymap.toml
 
+# // INFO: [bash] ENCLOSE `$@` in quotes - `\"$@\"`
 
 #[[manager.prepend_keymap]]
 #on   = [ "e" ]
 # // https://github.com/sxyazi/yazi/issues/591
 # // - https://yazi-rs.github.io/docs/tips/#dropping-to-the-shell
 # // REF: `shell` - https://yazi-rs.github.io/docs/configuration/keymap/#manager.shell
-#run  = 'shell --block --confirm "~/helix/2407/hx $@"'
+#run  = 'shell --block --confirm "~/helix/2407/hx \"$@\""'
 #desc = 'Edit file with HELIX...'
 
 [[manager.prepend_keymap]]
-on   = [ "p" ]
+on   = [ "f", "v" ]
 # // `--paging=always` for 'single-page' files
 # // `--style=plain` for NO decorations (ie. line numbers, borders, etc)
-run  = 'shell --block --confirm "bat --paging=always --style=plain $@ || vi -R $@"'
-desc = 'PreVIEW file with BAT or VI (in READ-ONLY mode)'
+run  = 'shell --block --confirm "bat --paging=always --style=plain \"$@\" || vi -R \"$@\""'
+desc = 'VIEW file with BAT or VI (in READ-ONLY mode)'
 [[manager.prepend_keymap]]
-on   = [ "P" ]
-run  = 'shell --block --confirm "bat --paging=always $@"'
-desc = 'PreVIEW file with BAT (with decorations)'
+on   = [ "f", "V" ]
+run  = 'shell --block --confirm "bat --paging=always \"$@\""'
+desc = 'VIEW file with BAT (with decorations)'
 
 
 [[manager.prepend_keymap]]
