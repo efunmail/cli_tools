@@ -22,7 +22,7 @@ podman run -it --rm $_PHP /bin/sh -c 'php --version'
 ```
 
 ```sh
-podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c 'cd /root; php d/info.php'
+podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c 'cd; php info.php'
 ```
 
 ### Run PhpSTAN
@@ -32,7 +32,7 @@ podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c 'cd /root; php d/info.php'
 ```sh
 wget https://github.com/phpstan/phpstan/releases/download/2.1.22/phpstan.phar -O ./d/phpstan.phar
 
-podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c "cd /root; php phpstan.phar --version" 
+podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c 'cd; php phpstan.phar --version'
 ```
 
 - Run PhpSTAN on a PHP project/repo...
@@ -52,5 +52,24 @@ _DIR=CakePHP-TALTAL
 
 git clone --depth 1 https://github.com/nojimage/CakePHP-TALTAL ./d/$_DIR
 
-podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c "cd /root; php phpstan.phar analyse --memory-limit=190000000 $_DIR" 
+podman run -it --rm -v $PWD/d:/root $_PHP /bin/sh -c "cd; php phpstan.phar analyse --memory-limit=190000000 $_DIR" 
+```
+
+### Php.INI
+
+- `php.ini` file:
+
+```ini
+memory_limit = 256M
+```
+
+> [!NOTE]
+> https://stackoverflow.com/a/57367364
+>
+> > You can see this in the output from the `phpinfo` function ...
+>
+> - `/usr/local/etc/php/php.ini`
+
+```sh
+podman run -it --rm -v $PWD/d:/root -v $PWD/d/php.ini:/usr/local/etc/php/php.ini $_PHP /bin/sh -c 'cd; php info.php'
 ```
