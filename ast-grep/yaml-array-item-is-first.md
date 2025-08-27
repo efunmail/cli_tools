@@ -1,6 +1,6 @@
 ## AST-Grep
 
-- [Playground](https://ast-grep.github.io/playground.html#eyJtb2RlIjoiQ29uZmlnIiwibGFuZyI6InlhbWwiLCJxdWVyeSI6ImNvbnNvbGUubG9nKCRNQVRDSCkiLCJyZXdyaXRlIjoibG9nZ2VyLmxvZygkTUFUQ0gpIiwic3RyaWN0bmVzcyI6InNtYXJ0Iiwic2VsZWN0b3IiOiIiLCJjb25maWciOiJpZDogenBuLWNoZWNrLWFycmF5LWl0ZW0taXMtZmlyc3Rcbmxhbmd1YWdlOiB5YW1sXG5tZXNzYWdlOiB8LVxuICBDaGVjayBpZiBhICdwbHVnaW4nIHZhbHVlIGlzIEZJUlNULi4uXG4gXG4jIC8vIEZpbmQgcGF0dGVybiAqaW5zZGUqIGBwbHVnaW5zOmAgd2l0aCBpdGVtICpiZWZvcmUqIGl0XG5ydWxlOlxuICBhbGw6XG4gICAgLSBwYXR0ZXJuOiAnLSAkVkFMJ1xuICAgIC0gaW5zaWRlOlxuICAgICAgICBwYXR0ZXJuOiAncGx1Z2luczonXG4gICAgICAgIGtpbmQ6IGJsb2NrX21hcHBpbmdfcGFpclxuICAgICAgICBzdG9wQnk6IHtraW5kOiBibG9ja19tYXBwaW5nX3BhaXJ9XG4gICAgLSBmb2xsb3dzOlxuICAgICAgICAgIGtpbmQ6IGJsb2NrX3NlcXVlbmNlX2l0ZW1cblxuY29uc3RyYWludHM6XG4gIFZBTDpcbiAgICByZWdleDogJ29ic2lkaWFuLWludGVyYWN0aXZlLWdyYXBoJyAgXG5cbmZpeDogfC1cbiAgLSAkVkFMICMgV0lQIiwic291cmNlIjoibXNnOiBIZWxsb1xucGx1Z2luczpcbiAgLSBwbHVnaW4tMDAxXG4gIC0gb2JzaWRpYW4taW50ZXJhY3RpdmUtZ3JhcGhcbiAgLSBwbHVnaW4tMDAzXG4gIC0gbXNnOiBIZWxsbyJ9)
+- [Playground](https://ast-grep.github.io/playground.html#eyJtb2RlIjoiQ29uZmlnIiwibGFuZyI6InlhbWwiLCJxdWVyeSI6ImNvbnNvbGUubG9nKCRNQVRDSCkiLCJyZXdyaXRlIjoibG9nZ2VyLmxvZygkTUFUQ0gpIiwic3RyaWN0bmVzcyI6InNtYXJ0Iiwic2VsZWN0b3IiOiIiLCJjb25maWciOiJpZDogenBuLWNoZWNrLWFycmF5LWl0ZW0taXMtZmlyc3Rcbmxhbmd1YWdlOiB5YW1sXG5tZXNzYWdlOiB8LVxuICBDaGVjayBpZiBhICdwbHVnaW4nIHZhbHVlIGlzIEZJUlNULi4uXG4gXG4jICoqIEZpbmQgSVRFTSAqaW5zZGUqIEFSUkFZLCB3aXRoIGl0ZW0ocykgKmJlZm9yZSogaXQgXG5ydWxlOlxuICBhbGw6XG4gICAgLSBwYXR0ZXJuOiAnLSAkSVRFTSdcbiAgICAtIGluc2lkZTpcbiAgICAgICAgcGF0dGVybjogJyRBUlJBWTonXG4gICAgICAgIGtpbmQ6IGJsb2NrX21hcHBpbmdfcGFpclxuICAgICAgICBzdG9wQnk6IHtraW5kOiBibG9ja19tYXBwaW5nX3BhaXJ9XG4gICAgLSBmb2xsb3dzOlxuICAgICAgICAgIGtpbmQ6IGJsb2NrX3NlcXVlbmNlX2l0ZW1cblxuIyAvLyBUT0RPOiAqSW5zdGVhZCogb2YgY29uc3RyYWludHMsIGNhbiB1c2UgRU5WIHZhcnMgKCYgZW52c3Vic3QpXG5jb25zdHJhaW50czpcbiAgQVJSQVk6IHsgcmVnZXg6ICdwbHVnaW5zJyB9XG4gIElURU06IHsgcmVnZXg6ICdvYnNpZGlhbi1pbnRlcmFjdGl2ZS1ncmFwaCcgfVxuXG5maXg6IHwtXG4gIC0gJElURU0gIyBXSVAiLCJzb3VyY2UiOiJtc2c6IEhlbGxvXG5wbHVnaW5zOlxuICAtIHBsdWdpbi0wMDFcbiAgLSBvYnNpZGlhbi1pbnRlcmFjdGl2ZS1ncmFwaFxuICAtIHBsdWdpbi0wMDNcbiAgLSBtc2c6IEhlbGxvIn0=)
 
 - Rule:
 
@@ -10,23 +10,24 @@ language: yaml
 message: |-
   Check if a 'plugin' value is FIRST...
  
-# // Find pattern *insde* `plugins:` with item *before* it
+# ** Find ITEM *insde* ARRAY, with item(s) *before* it 
 rule:
   all:
-    - pattern: '- $VAL'
+    - pattern: '- $ITEM'
     - inside:
-        pattern: 'plugins:'
+        pattern: '$ARRAY:'
         kind: block_mapping_pair
         stopBy: {kind: block_mapping_pair}
     - follows:
           kind: block_sequence_item
 
+# // TODO: *Instead* of constraints, can use ENV vars (& envsubst)
 constraints:
-  VAL:
-    regex: 'obsidian-interactive-graph'  
+  ARRAY: { regex: 'plugins' }
+  ITEM: { regex: 'obsidian-interactive-graph' }
 
 fix: |-
-  - $VAL # WIP
+  - $ITEM # WIP
 ```
 
 - Example:
