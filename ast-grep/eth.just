@@ -7,6 +7,9 @@ info-tools: #
 info-versions:
   ## cake/VERSION.txt
   ## - `1.3.21`
+  # (cat cake/VERSION.txt 2> /dev/null) | grep -v '//' # eg. 1.31.21
+  # (cat lib/Cake/VERSION.txt 2> /dev/null) | grep -v '//' # eg. 2.10.24
+
   ## plugins/taltal-2.0/Vendor/phptal/PHPTAL.php
   ## - `define('PHPTAL_VERSION', '1_2_2');`
 
