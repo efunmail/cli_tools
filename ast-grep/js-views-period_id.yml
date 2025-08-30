@@ -1,0 +1,18 @@
+# // RUN: ast-grep scan -i -r $0
+
+id: js-views-period_id
+language: javascript
+
+# // ALT: in `sgconfig.yml`:
+# // languageGlobs:
+# //   html: ['*.xml'] 
+files:
+  - _views/**/*.xml
+
+severity: warning
+message: Ensure the 'ID' is correct (ie. UP-TO-DATE!).
+
+rule: { pattern: 'var period_id = $ID' }
+
+fix: |-
+  var period_id = 'YYYY_FUND_N'
