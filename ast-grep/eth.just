@@ -5,7 +5,10 @@ info-tools: #
 
 # Framework Versions - TODO:
 info-versions:
-  #!/usr/bin/env bash
+  ## cake/VERSION.txt
+  ## - `1.3.21`
+  ## plugins/taltal-2.0/Vendor/phptal/PHPTAL.php
+  ## - `define('PHPTAL_VERSION', '1_2_2');`
 
 ## 'View' FILES:
 ## - app/views/aaa/aaa.xml
