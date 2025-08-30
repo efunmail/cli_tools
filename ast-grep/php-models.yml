@@ -1,0 +1,25 @@
+# // RUN: ast-grep scan -r $0 -i
+
+# // TODO: jq
+#    ast-grep scan -r $0 --json | jq '[.[] | {wip:.metaVariables.single.FUNC.text}]' -r
+
+id: php-models
+language: php
+
+files: [ '*/**/pn_d*.php' ]
+
+severity: info
+message: List of FUNCTIONS/METHODS callable via AJAX (`xaja`)...
+
+rule:
+  pattern: $FUNC
+  kind: name
+  inside:
+    kind: method_declaration
+
+constraints:
+  FUNC: {not: {regex: '^(_|__|___)$'}} # // OPTIONAL
+
+
+fix: |-
+  /* $FUNC */ $FUNC
