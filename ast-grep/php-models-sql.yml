@@ -1,0 +1,27 @@
+# // RUN: ast-grep scan -r $0 -i
+
+# // TODO: jq
+#    .metaVariables.single.FUNC.text
+#    .metaVariables.single.HEREDOC.text
+
+
+id: php-models-sql
+language: php
+
+files: [ '*/**/pn_d*.php' ]
+
+severity: info
+message: List of FUNCTIONS/METHODS (with SQL 'heredoc's) that are callable via AJAX (`xaja`)...
+
+rule:
+  pattern: $HEREDOC
+  kind: heredoc
+  inside:
+    pattern: 'function $FUNC'
+    kind: method_declaration
+    stopBy: {kind: method_declaration}
+
+constraints:
+  FUNC: {not: {regex: '^(_|__|___)$'}} # // OPTIONAL
+
+
