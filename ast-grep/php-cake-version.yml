@@ -1,0 +1,23 @@
+# // RUN: ast-grep scan -r $0 -i
+# // RUN: ast-grep scan -r $0 --globs '*/**/VERSION.txt' -i
+  
+id: php-cake-version
+language: rust # // NOTE: rust
+
+# !! NOTE: in `sgconfig.yml`:
+#     languageGlobs: 
+#       rust: [ 'VERSION*.txt']  # // CakePHP
+
+# // ALT: CMD-LINE: `--globs '...'`
+#files:
+  #- '*/**/VERSION.txt'
+
+  #- 'cake/VERSION.txt'      # // eg. 1.31.21
+  #- 'lib/Cake/VERSION.txt'  # // eg. 2.10.24
+
+severity: info
+message: 'CakePHP version is: $VER'
+
+rule:
+  pattern: $VER
+  kind: field_expression # // RE: rust
