@@ -1,13 +1,16 @@
 # // RUN: ast-grep scan -i -r $0
+# // RUN: ast-grep scan -r $0 --globs '*/**/views/aaa/aaa_index.xml' -i
 
 id: js-views-period_id
 language: javascript
 
-# // ALT: in `sgconfig.yml`:
-# // languageGlobs:
-# //   html: ['*.xml'] 
-files:
-  - _views/**/*.xml
+# !! NOTE: in `sgconfig.yml`:
+#     languageGlobs: 
+#        #html: ['*.xml'] # // CakePHP
+#        html: ['aaa_*.xml']
+
+# // ALT: CMD-LINE: `--globs '...'`
+#files: ['*/**/views/aaa/aaa_index.xml']
 
 severity: warning
 message: Ensure the 'ID' is correct (ie. UP-TO-DATE!).
