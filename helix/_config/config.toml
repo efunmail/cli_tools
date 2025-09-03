@@ -1,5 +1,8 @@
 theme = "dark_plus"
-
+[editor]
+# https://github.com/helix-editor/helix/discussions/8031#discussioncomment-11378127
+# - https://docs.helix-editor.com/editor.html#editor-section
+true-color = true
 
 [keys.normal]
 # PN
