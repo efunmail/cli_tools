@@ -25,14 +25,22 @@ vim.opt.winborder = 'rounded'
 -- [pn]
 -- // https://tuckerchapman.com/2018/06/16/how-to-use-the-vim-leader-key/
 vim.g.mapleader = ' ' -- // ALT: ','
-vim.keymap.set('n', ';', ':', {silent=false}) -- // [VIM] nnoremap ; :
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C-n>
--- // toggle ON; and toggle OFF
--- vim.keymap.set('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
--- vim.keymap.set('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
--- // ALT: [VIM] 3rd arg: ':FzfLua buffers'
-vim.keymap.set('n', '<leader><space>', function() FzfLua.buffers() end, { desc = '[ ] Find existing buffers' })
+-- ** MAP Function
+local function keymap(mode, lhs, rhs, opts)
+  local options = {noremap=true, silent=true} -- // ORIG: {noremap=true}
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.keymap.set(mode, lhs, rhs, options) -- // ORIG: vim.api.nvim_set_keymap(....)
+end
+
+keymap('n', ';', ':', {silent=false}) -- // [VIM] nnoremap ; :
+keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C-n>
+-- // toggle ON; and toggle OFF
+-- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
+-- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
+
+keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Find existing buffers'})
+keymap('n', '<Leader>fk', ':FzfLua keymaps<CR>', {desc='Find keymaps'})
 
 
 -- ## PLUG-INs
