@@ -1,9 +1,19 @@
-vim.cmd([[
-  call plug#begin()
-    Plug 'catppuccin/nvim', { 'as':'catppuccin', 'tag':'v1.11.0' }
-  call plug#end()
+-- ** PLUG-INs
+-- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
+local Plug = vim.fn['plug#']
+vim.fn['plug#begin']()
+  Plug('catppuccin/nvim', { ['as']='catppuccin', ['tag']='v1.11.0' })
+  -- Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+vim.fn['plug#end']()
+-- // ALT: vim commands
+-- vim.cmd([[
+--   call plug#begin()
+--     Plug 'catppuccin/nvim', { 'as':'catppuccin', 'tag':'v1.11.0' }
+--   call plug#end()
+-- ]])
 
-]])
+vim.cmd.colorscheme('catppuccin-mocha')
+-- // ALT: vim.cmd([[ colorscheme catppuccin-mocha ]])
 
 
 -- ** (Native) LSP 
@@ -29,4 +39,4 @@ vim.lsp.config['pyright'] = {
 }
 
 
-vim.cmd.colorscheme('catppuccin')
+-- vim.cmd.colorscheme('catppuccin-mocha')
