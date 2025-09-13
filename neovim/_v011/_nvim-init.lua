@@ -39,7 +39,9 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 -- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
 -- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
-keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Find existing buffers'})
+-- // FzfLua
+keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Find in CURRENT buffer'})
+keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Find BUFFERS'})
 keymap('n', '<Leader>fk', ':FzfLua keymaps<CR>', {desc='Find keymaps'})
 
 
