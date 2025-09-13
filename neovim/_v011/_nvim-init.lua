@@ -39,11 +39,6 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 -- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
 -- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
--- // FzfLua
-keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Find in CURRENT buffer'})
-keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Find BUFFERS'})
-keymap('n', '<Leader>fk', ':FzfLua keymaps<CR>', {desc='Find keymaps'})
-
 
 -- ## PLUG-INs
 -- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
@@ -51,6 +46,9 @@ local Plug = vim.fn['plug#']
 vim.fn['plug#begin']()
   Plug('catppuccin/nvim', { ['as']='catppuccin', ['tag']='v1.11.0' })
   Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
+
+  Plug('nvimdev/lspsaga.nvim')
+
   -- Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 vim.fn['plug#end']()
 -- // ALT: vim commands
@@ -60,9 +58,15 @@ vim.fn['plug#end']()
 --   call plug#end()
 -- ]])
 
-vim.cmd.colorscheme('catppuccin-mocha')
--- // ALT: vim.cmd([[ colorscheme catppuccin-mocha ]])
+if vim.g.plugs['catppuccin'] ~= nil then
+  vim.cmd.colorscheme('catppuccin-mocha') -- // ALT: vim.cmd([[ colorscheme catppuccin-mocha ]])
+end
 
+if vim.g.plugs['fzf-lua'] ~= nil then
+  keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Find in CURRENT buffer'})
+  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Find BUFFERS'})
+  keymap('n', '<Leader>fk', ':FzfLua keymaps<CR>', {desc='Find keymaps'})
+end
 
 -- ** (Native) LSP 
 -- // https://gpanders.com/blog/whats-new-in-neovim-0-11
