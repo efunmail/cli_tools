@@ -3,6 +3,7 @@
 local Plug = vim.fn['plug#']
 vim.fn['plug#begin']()
   Plug('catppuccin/nvim', { ['as']='catppuccin', ['tag']='v1.11.0' })
+  Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
   -- Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 vim.fn['plug#end']()
 -- // ALT: vim commands
