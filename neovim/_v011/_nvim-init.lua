@@ -39,6 +39,10 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 -- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
 -- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
+if vim.lsp ~= nil then
+  -- // `inlay_hint` - https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
+  keymap('n', '<Leader>H', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', {desc='Toggle INLAY HINTS'})
+end
 
 -- ## PLUG-INs
 -- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
@@ -47,7 +51,7 @@ vim.fn['plug#begin']()
   Plug('catppuccin/nvim', { ['as']='catppuccin', ['tag']='v1.11.0' })
   Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
 
-  Plug('nvimdev/lspsaga.nvim')
+  -- Plug('nvimdev/lspsaga.nvim') -- // NOT needed - re: *native* LSP
 
   -- Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 vim.fn['plug#end']()
