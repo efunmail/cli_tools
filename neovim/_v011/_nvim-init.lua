@@ -12,19 +12,19 @@ vim.opt.smarttab = true
 --    Moving between tabs: :tabnext :tabprevious
 vim.opt.showtabline = 2
 
-vim.opt.undofile = true -- // pn2024 [kickstart]
+vim.opt.undofile = true -- // [kickstart]
 
--- [SylvanFranklin_init_lua](https://github.com/SylvanFranklin/.config/blob/main/nvim/init.lua)
+-- // [SylvanFranklin_init_lua]
 -- vim.cmd([[set mouse=]])
 vim.cmd([[set noswapfile]])
 -- vim.opt.signcolumn = 'yes'
 vim.opt.winborder = 'rounded'
 
 
--- ## KEYs, KEYMAPs
--- [pn]
+-- !! NOTE: Must be defined BEFORE plug-ins are loaded. [kickstart]
 -- // https://tuckerchapman.com/2018/06/16/how-to-use-the-vim-leader-key/
 vim.g.mapleader = ' ' -- // ALT: ','
+vim.g.maplocalleader = ' '
 
 -- ** MAP Function
 local function keymap(mode, lhs, rhs, opts)
@@ -49,7 +49,9 @@ vim.fn['plug#begin']()
 
   Plug('nvimdev/lspsaga.nvim') -- , {['as']='lspsaga'})
 
-  -- Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
+  -- TODO: leap.nvim
+ 
+  -- TODO: Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 vim.fn['plug#end']()
 -- // ALT: vim commands
 -- vim.cmd([[
@@ -84,7 +86,7 @@ if vim.lsp ~= nil then
  
  
   -- // TODO: `vim.diagnostic` and `virtual_lines` `virtual_text`
-  -- // [gpanders_011](https://gpanders.com/blog/whats-new-in-neovim-0-11)
+  -- // [gpanders_011]
   -- // https://qmacro.org/blog/posts/2025/06/10/a-modern-and-clean-neovim-setup-for-cap-node.js-configuration-and-diagnostics/
 
 
@@ -119,3 +121,7 @@ if vim.g.plugs['lspsaga.nvim'] ~= nil then
   keymap('n', '<C-Up><C-Up>', ':Lspsaga term_toggle<CR>', {desc='lspsaga: [NORM] Toggle TERMINAL'})
   keymap('t', '<C-Down><C-Down>', '<C-\\><C-n>:Lspsaga term_toggle<CR>', {desc='lspsaga: [TERM] Toggle TERMINAL'})
 end
+
+-- [kickstart](https://github.com/nvim-lua/kickstart.nvim)
+-- [gpanders_011](https://gpanders.com/blog/whats-new-in-neovim-0-11)
+-- [SylvanFranklin_init_lua](https://github.com/SylvanFranklin/.config/blob/main/nvim/init.lua)
