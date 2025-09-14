@@ -78,6 +78,12 @@ if vim.lsp ~= nil then
   -- // ALT: 3rd arg: `function() vim.cmd('split'); vim.lsp.buf.definition(); end`
   keymap('n', '<Leader>gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>', {desc='lsp: Go to Definiton...'})
  
+ 
+  -- // TODO: `vim.diagnostic` and `virtual_lines` `virtual_text`
+  -- // [gpanders_011](https://gpanders.com/blog/whats-new-in-neovim-0-11)
+  -- // https://qmacro.org/blog/posts/2025/06/10/a-modern-and-clean-neovim-setup-for-cap-node.js-configuration-and-diagnostics/
+
+
   -- vim.lsp.config['luals'] = {
   --   cmd = { 'lua_ls', '--WIP' },
   --   root_markers = { 'WIP.lua' },
@@ -90,7 +96,7 @@ if vim.lsp ~= nil then
     filetypes = { 'python' }, -- TODO: 'py' ??
   }
  
-  -- // https://gpanders.com/blog/whats-new-in-neovim-0-11
+  -- // [gpanders_011]
   vim.lsp.enable({
     -- 'luals'
     'pyright'
