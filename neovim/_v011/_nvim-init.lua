@@ -88,10 +88,25 @@ File: `~/.local/share/$NVIM_APPNAME/plugged/fzf-lua/doc/fzf-lua.txt`
 if vim.g.plugs['fzf-lua'] ~= nil then
   keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Search CURRENT buffer'})
   keymap('n', '<Leader>?', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
-  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'}) -- // TODO: NOT new tab?
+  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'}) -- // `file_drop_or_qf`
   keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
 
   keymap('n', '<A-Up>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
+
+  -- // `file_drop_or_qf` - https://github.com/ibhagwan/fzf-lua/issues/2295
+  local file_drop_or_qf = function(selected, opts)
+    if #selected > 1 then require('fzf-lua.actions').file_sel_to_qf(selected, opts)
+    else require('fzf-lua.actions').vimcmd_entry("drop", selected, opts)
+    end
+  end
+
+  require('fzf-lua').setup({
+    actions = {
+      files = {
+        ['default'] = file_drop_or_qf, -- // "drop" to *existing* tab
+      },
+    },
+  })
 end
 
 
@@ -140,6 +155,12 @@ if vim.g.plugs['lspsaga.nvim'] ~= nil then
   --    Lspsaga finder
   --    ...
   keymap('n', '<Leader>ld', ':Lspsaga peek_definition<CR>', {desc='lspsaga: Peek DEFINITION'})
+  -- // NOTE: `gra` is *built-in* Code Action
+  -- // Built-in uses line diagnostic; lspsaga's uses cursor diag. - https://nvimdev.github.io/lspsaga/codeaction/
+  keymap('n', '<Leader>lca', ':Lspsaga code_action<CR>', {desc='lspsaga: Code ACTION'})
+
+  keymap('n', '<Leader>lcd', ':Lspsaga show_cursor_diagnostics<CR>', {desc='lspsaga: Show *cursor* DIAGNOS.'})
+  keymap('n', '<Leader>lcl', ':Lspsaga show_line_diagnostics<CR>', {desc='lspsaga: Show *line* DIAGNOS.'})
 
   keymap('n', '<C-Up><C-Up>', ':Lspsaga term_toggle<CR>', {desc='lspsaga: [NORM] Toggle TERMINAL'})
   keymap('t', '<C-Down><C-Down>', '<C-\\><C-n>:Lspsaga term_toggle<CR>', {desc='lspsaga: [TERM] Toggle TERMINAL'})
