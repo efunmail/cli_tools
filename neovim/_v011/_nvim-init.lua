@@ -39,10 +39,6 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 -- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
 -- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
-if vim.lsp ~= nil then
-  -- // `inlay_hint` - https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
-  keymap('n', '<Leader>H', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', {desc='Toggle INLAY HINTS'})
-end
 
 -- ## PLUG-INs
 -- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
@@ -72,27 +68,27 @@ if vim.g.plugs['fzf-lua'] ~= nil then
   keymap('n', '<Leader>fk', ':FzfLua keymaps<CR>', {desc='Find keymaps'})
 end
 
+
 -- ** (Native) LSP 
--- // https://gpanders.com/blog/whats-new-in-neovim-0-11
-vim.lsp.enable({
-  -- 'luals'
-  'pyright'
-})
-
-
--- vim.lsp.config['luals'] = {
---   cmd = { 'lua_ls', '--WIP' },
---   root_markers = { 'WIP.lua' },
---   filetypes = { 'lua' },
--- }
-
-
-vim.lsp.config['pyright'] = {
-  cmd = { 'basedpyright-langserver', '--stdio' },
-  -- cmd = { 'basedpyright-langserver-bun', '--stdio' }, -- TODO: OKAY
-  -- root_markers = { 'pyrightconfig.json' }, -- TODO: optional??
-  filetypes = { 'python' }, -- TODO: 'py' ??
-}
-
-
--- vim.cmd.colorscheme('catppuccin-mocha')
+if vim.lsp ~= nil then
+  -- // `inlay_hint` - https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
+  keymap('n', '<Leader>H', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', {desc='Toggle INLAY HINTS'})
+ 
+  -- vim.lsp.config['luals'] = {
+  --   cmd = { 'lua_ls', '--WIP' },
+  --   root_markers = { 'WIP.lua' },
+  --   filetypes = { 'lua' },
+  -- }
+  vim.lsp.config['pyright'] = {
+    cmd = { 'basedpyright-langserver', '--stdio' },
+    -- cmd = { 'basedpyright-langserver-bun', '--stdio' }, -- TODO: OKAY
+    -- root_markers = { 'pyrightconfig.json' }, -- TODO: optional??
+    filetypes = { 'python' }, -- TODO: 'py' ??
+  }
+ 
+  -- // https://gpanders.com/blog/whats-new-in-neovim-0-11
+  vim.lsp.enable({
+    -- 'luals'
+    'pyright'
+  })
+end
