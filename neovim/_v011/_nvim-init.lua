@@ -71,7 +71,7 @@ if vim.g.plugs['fzf-lua'] ~= nil then
   keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'})
   keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
 
-  keymap('n', '<Leader>sch', ':FzfLua command_history<CR>', {desc='Search Command History'})
+  keymap('n', '<A-Up>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
 end
 
 
@@ -88,6 +88,9 @@ if vim.lsp ~= nil then
   -- // TODO: `vim.diagnostic` and `virtual_lines` `virtual_text`
   -- // [gpanders_011]
   -- // https://qmacro.org/blog/posts/2025/06/10/a-modern-and-clean-neovim-setup-for-cap-node.js-configuration-and-diagnostics/
+
+  -- // `checkhealth`
+  keymap('n', '<Leader>chl', ':checkhealth vim.lsp<CR>', {desc='health: Check vim.LSP'})
 
 
   -- vim.lsp.config['luals'] = {
