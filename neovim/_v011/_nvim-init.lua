@@ -162,6 +162,8 @@ if vim.g.plugs['lspsaga.nvim'] ~= nil then
   keymap('n', '<Leader>lcd', ':Lspsaga show_cursor_diagnostics<CR>', {desc='lspsaga: Show *cursor* DIAGNOS.'})
   keymap('n', '<Leader>lcl', ':Lspsaga show_line_diagnostics<CR>', {desc='lspsaga: Show *line* DIAGNOS.'})
 
+  keymap('n', '<Leader>lo', ':Lspsaga outline<CR>', {desc='lspsaga: Show OUTLINE. `e`, `o`.'})
+
   keymap('n', '<C-Up><C-Up>', ':Lspsaga term_toggle<CR>', {desc='lspsaga: [NORM] Toggle TERMINAL'})
   keymap('t', '<C-Down><C-Down>', '<C-\\><C-n>:Lspsaga term_toggle<CR>', {desc='lspsaga: [TERM] Toggle TERMINAL'})
 end
