@@ -44,10 +44,10 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 -- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
 local Plug = vim.fn['plug#']
 vim.fn['plug#begin']()
-  Plug('catppuccin/nvim', { ['as']='catppuccin', ['tag']='v1.11.0' })
+  Plug('catppuccin/nvim', {['as']='catppuccin', ['tag']='v1.11.0'})
   Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
 
-  -- Plug('nvimdev/lspsaga.nvim') -- // NOT needed - re: *native* LSP
+  Plug('nvimdev/lspsaga.nvim') -- , {['as']='lspsaga'})
 
   -- Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 vim.fn['plug#end']()
@@ -101,4 +101,15 @@ if vim.lsp ~= nil then
     -- 'luals'
     'pyright'
   })
+end
+
+
+if vim.g.plugs['lspsaga.nvim'] ~= nil then
+  require('lspsaga').setup({})
+
+  -- // TODO:
+  --    Lspsaga finder
+  --    ...
+  keymap('n', '<Leader>ld', ':Lspsaga peek_definition<CR>', {desc='lspsaga: Peek definition'})
+
 end
