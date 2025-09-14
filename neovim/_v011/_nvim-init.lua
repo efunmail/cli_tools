@@ -72,7 +72,11 @@ end
 -- ** (Native) LSP 
 if vim.lsp ~= nil then
   -- // `inlay_hint` - https://neovim.io/doc/user/lsp.html#lsp-inlay_hint
-  keymap('n', '<Leader>H', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', {desc='Toggle INLAY HINTS'})
+  keymap('n', '<Leader>H', ':lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<CR>', {desc='lsp: Toggle INLAY HINTS'})
+
+  -- // `vsplit` - https://vi.stackexchange.com/a/42124
+  -- // ALT: 3rd arg: `function() vim.cmd('split'); vim.lsp.buf.definition(); end`
+  keymap('n', '<Leader>gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>', {desc='lsp: Go to Definiton...'})
  
   -- vim.lsp.config['luals'] = {
   --   cmd = { 'lua_ls', '--WIP' },
