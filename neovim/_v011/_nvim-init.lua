@@ -64,11 +64,31 @@ if vim.g.plugs['catppuccin'] ~= nil then
   vim.cmd.colorscheme('catppuccin-mocha') -- // ALT: vim.cmd([[ colorscheme catppuccin-mocha ]])
 end
 
+_INFO_fzf_lua = [[
+
+File: `~/.local/share/$NVIM_APPNAME/plugged/fzf-lua/doc/fzf-lua.txt`
+
+- `builtin = {`
+
+```lua
+["<M-Esc>"]     = "hide"
+
+["<S-down>"]    = "preview-page-down",
+```
+
+- `actions = {`
+
+```lua
+["enter"]       = actions.file_edit_or_qf,
+
+["ctrl-t"]      = actions.file_tabedit,
+```
+
+]]
 if vim.g.plugs['fzf-lua'] ~= nil then
   keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Search CURRENT buffer'})
   keymap('n', '<Leader>?', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
-  -- keymap('n', '<Leader>sk', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
-  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'})
+  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'}) -- // TODO: NOT new tab?
   keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
 
   keymap('n', '<A-Up>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
