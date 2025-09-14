@@ -35,7 +35,7 @@ end
 
 keymap('n', ';', ':', {silent=false}) -- // [VIM] nnoremap ; :
 keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C-n>
--- // toggle ON; and toggle OFF
+-- // [FloatermToggle] Toggle ON; and Toggle OFF
 -- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
 -- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
@@ -63,9 +63,13 @@ if vim.g.plugs['catppuccin'] ~= nil then
 end
 
 if vim.g.plugs['fzf-lua'] ~= nil then
-  keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Find in CURRENT buffer'})
-  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Find BUFFERS'})
-  keymap('n', '<Leader>fk', ':FzfLua keymaps<CR>', {desc='Find keymaps'})
+  keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Search CURRENT buffer'})
+  keymap('n', '<Leader>?', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
+  -- keymap('n', '<Leader>sk', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
+  keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'})
+  keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
+
+  keymap('n', '<Leader>sch', ':FzfLua command_history<CR>', {desc='Search Command History'})
 end
 
 
@@ -76,7 +80,7 @@ if vim.lsp ~= nil then
 
   -- // `vsplit` - https://vi.stackexchange.com/a/42124
   -- // ALT: 3rd arg: `function() vim.cmd('split'); vim.lsp.buf.definition(); end`
-  keymap('n', '<Leader>gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>', {desc='lsp: Go to Definiton...'})
+  keymap('n', '<Leader>gd', ':split<CR>:lua vim.lsp.buf.definition()<CR>', {desc='lsp: Go to DEFINITON'})
  
  
   -- // TODO: `vim.diagnostic` and `virtual_lines` `virtual_text`
@@ -110,6 +114,8 @@ if vim.g.plugs['lspsaga.nvim'] ~= nil then
   -- // TODO:
   --    Lspsaga finder
   --    ...
-  keymap('n', '<Leader>ld', ':Lspsaga peek_definition<CR>', {desc='lspsaga: Peek definition'})
+  keymap('n', '<Leader>ld', ':Lspsaga peek_definition<CR>', {desc='lspsaga: Peek DEFINITION'})
 
+  keymap('n', '<C-Up><C-Up>', ':Lspsaga term_toggle<CR>', {desc='lspsaga: [NORM] Toggle TERMINAL'})
+  keymap('t', '<C-Down><C-Down>', '<C-\\><C-n>:Lspsaga term_toggle<CR>', {desc='lspsaga: [TERM] Toggle TERMINAL'})
 end
