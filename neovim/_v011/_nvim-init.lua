@@ -39,6 +39,9 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 -- keymap('n', '<C-UP><C-UP>', ':FloatermToggle<CR>')
 -- keymap('t', '<C-DOWN><C-DOWN>', '<C-\\><C-n>:FloatermToggle<CR>') -- // ALT: '<Esc><Esc><Esc>'
 
+-- // [kickstart] CLEAR 'search' highlights. (See `:help hlsearch`)
+vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>')
+
 
 -- ## PLUG-INs
 -- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
