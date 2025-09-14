@@ -96,6 +96,9 @@ if vim.g.plugs['fzf-lua'] ~= nil then
 
   keymap('n', '<A-Up>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
 
+  -- // `incoming_calls` - (Also, see `outgoing_calls`.)
+  keymap('n', '<Leader>lci', ':FzfLua lsp_incoming_calls<CR>', {desc='[lsp]: INCOMING calls.'})
+ 
   -- // `file_drop_or_qf` - https://github.com/ibhagwan/fzf-lua/issues/2295
   local file_drop_or_qf = function(selected, opts)
     if #selected > 1 then require('fzf-lua.actions').file_sel_to_qf(selected, opts)
@@ -110,6 +113,24 @@ if vim.g.plugs['fzf-lua'] ~= nil then
       },
     },
   })
+ 
+  local fzf_ast_grep = function()
+    -- https://www.reddit.com/r/neovim/comments/1hyy02q/astgrep_with_fzflua/
+    require("fzf-lua").fzf_live(
+      "ast-grep --context 0 --heading never --pattern <query> 2> /dev/null", {
+        exec_empty_query = false,
+        actions = {
+          ["default"] = require "fzf-lua".actions.file_edit,
+          ["ctrl-q"] = {
+            -- Send results to the quickfix list
+            fn = require("fzf-lua").actions.file_edit_or_qf,
+            prefix = "select-all+"
+          }
+        }
+      }
+    )
+  end
+  keymap('n', '<Leader>sg', function() fzf_ast_grep() end, {desc='WIP: AST-GREP search...'})
 end
 
 
@@ -152,7 +173,7 @@ end
 
 
 if vim.g.plugs['lspsaga.nvim'] ~= nil then
-  require('lspsaga').setup({})
+  require('lspsaga').setup()
 
   -- // TODO:
   --    Lspsaga finder
@@ -164,6 +185,9 @@ if vim.g.plugs['lspsaga.nvim'] ~= nil then
 
   keymap('n', '<Leader>lcd', ':Lspsaga show_cursor_diagnostics<CR>', {desc='lspsaga: Show *cursor* DIAGNOS.'})
   keymap('n', '<Leader>lcl', ':Lspsaga show_line_diagnostics<CR>', {desc='lspsaga: Show *line* DIAGNOS.'})
+
+  -- // `outgoing_calls` - (Also, see `incoming_calls`.)
+  keymap('n', '<Leader>lco', ':Lspsaga outgoing_calls<CR>', {desc='lspsaga: OUTGOING calls.'})
 
   keymap('n', '<Leader>lo', ':Lspsaga outline<CR>', {desc='lspsaga: Show OUTLINE. `e`, `o`.'})
 
