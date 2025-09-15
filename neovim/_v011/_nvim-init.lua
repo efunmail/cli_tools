@@ -101,9 +101,10 @@ File: `~/.local/share/$NVIM_APPNAME/plugged/fzf-lua/doc/fzf-lua.txt`
 
 ]]
 if vim.g.plugs['fzf-lua'] ~= nil then
-  keymap({'i','n'}, '<A-Up>', '<cmd>FzfLua<CR>', {desc='Search FZFLua'}) -- // `ALT` key
-  keymap({'i','n'}, "<A-'>", '<cmd>FzfLua registers<CR>', {desc='Search REGISTERS'})
+  keymap({'i','n'}, '<A-Up>', '<cmd>FzfLua<CR>', {desc='Search FZFLua (BUILTIN)'}) -- // `ALT` key
+  keymap({'i','n'}, '<A-L>', '<cmd>FzfLua builtin query=lsp<CR>', {desc='Search FZFLua (BUILTIN) "LSP"'}) -- // `ALT` key
   keymap({'i','n'}, '<A-.>', '<cmd>FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
+  keymap({'i','n'}, "<A-'>", '<cmd>FzfLua registers<CR>', {desc='Search REGISTERS'})
   keymap({'i','n'}, '<A-;>', '<cmd>FzfLua command_history<CR>', {desc='Search Command History'})
 
   -- // `query` `expand` - https://github.com/ibhagwan/fzf-lua/issues/835
