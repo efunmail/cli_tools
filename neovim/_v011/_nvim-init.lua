@@ -101,12 +101,13 @@ File: `~/.local/share/$NVIM_APPNAME/plugged/fzf-lua/doc/fzf-lua.txt`
 
 ]]
 if vim.g.plugs['fzf-lua'] ~= nil then
-  keymap('n', '<A-Up>', ':FzfLua<CR>', {desc='Search FZFLua'}) -- // `ALT` key
-  keymap('n', '<A-;>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
+  keymap({'i','n'}, '<A-Up>', '<cmd>FzfLua<CR>', {desc='Search FZFLua'}) -- // `ALT` key
+  keymap({'i','n'}, "<A-'>", '<cmd>FzfLua registers<CR>', {desc='Search REGISTERS'})
+  keymap({'i','n'}, '<A-;>', '<cmd>FzfLua command_history<CR>', {desc='Search Command History'})
 
   keymap('n', '<Leader>.', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
-  keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Search CURRENT buffer'})
-  keymap('n', '<Leader>?', ':FzfLua registers<CR>', {desc='Search REGISTERS'})
+  -- // `query` `expand` - https://github.com/ibhagwan/fzf-lua/issues/835
+  keymap('n', '<Leader>/', ':lua FzfLua.grep_curbuf({query=vim.fn.expand("<cword>")})<CR>', {desc='Search CURRENT buffer'})
 
   keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'}) -- // `file_drop_or_qf`
   keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
