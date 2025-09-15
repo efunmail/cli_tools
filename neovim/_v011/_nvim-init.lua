@@ -1,3 +1,14 @@
+local _COMMENT_info = [[
+  ## INFO
+
+  ### NVIM_APPNAME
+  - Lua: `os.getenv('NVIM_APPNAME')`
+
+  ### 'config' dir
+  // https://neovim.io/doc/user/lua-guide.html#lua-guide-config
+  - Lua: `vim.fn.stdpath('config')`
+  - Vim: `:echo stdpath('config')`
+]]
 -- ## OPTIONs
 -- [pn]
 vim.opt.number = true
@@ -41,6 +52,7 @@ keymap('t', '<Esc><Esc>', '<C-\\><C-n>') -- // [VIM] tnoremap <Esc><Esc> <C-\><C
 
 -- // [kickstart] CLEAR 'search' highlights. (See `:help hlsearch`)
 vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>')
+
 
 
 -- ## PLUG-INs
@@ -89,12 +101,15 @@ File: `~/.local/share/$NVIM_APPNAME/plugged/fzf-lua/doc/fzf-lua.txt`
 
 ]]
 if vim.g.plugs['fzf-lua'] ~= nil then
+  keymap('n', '<A-Up>', ':FzfLua<CR>', {desc='Search FZFLua'}) -- // `ALT` key
+  keymap('n', '<A-;>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
+
+  keymap('n', '<Leader>.', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
   keymap('n', '<Leader>/', ':FzfLua grep_curbuf<CR>', {desc='Search CURRENT buffer'})
-  keymap('n', '<Leader>?', ':FzfLua keymaps<CR>', {desc='Search for KEYMAP'})
+  keymap('n', '<Leader>?', ':FzfLua registers<CR>', {desc='Search REGISTERS'})
+
   keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'}) -- // `file_drop_or_qf`
   keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
-
-  keymap('n', '<A-Up>', ':FzfLua command_history<CR>', {desc='Search Command History'}) -- // `ALT` key
 
   -- // `incoming_calls` - (Also, see `outgoing_calls`.)
   keymap('n', '<Leader>lci', ':FzfLua lsp_incoming_calls<CR>', {desc='[lsp]: INCOMING calls.'})
