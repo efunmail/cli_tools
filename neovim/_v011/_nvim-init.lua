@@ -177,17 +177,17 @@ if vim.lsp ~= nil then
   --   root_markers = { 'WIP.lua' },
   --   filetypes = { 'lua' },
   -- }
-  vim.lsp.config['pyright'] = {
+  vim.lsp.config['basedpyright'] = {
     cmd = { 'basedpyright-langserver', '--stdio' },
-    -- cmd = { 'basedpyright-langserver-bun', '--stdio' }, -- TODO: OKAY
+    -- cmd = { 'basedpyright-langserver-bun', '--stdio' }, -- // OKAY
     -- root_markers = { 'pyrightconfig.json' }, -- TODO: optional??
-    filetypes = { 'python' }, -- TODO: 'py' ??
+    filetypes = { 'python' },
   }
  
   -- // [gpanders_011]
   vim.lsp.enable({
     -- 'luals'
-    'pyright'
+    'basedpyright'
   })
 end
 
