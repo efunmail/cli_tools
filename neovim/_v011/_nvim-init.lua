@@ -62,6 +62,8 @@ vim.fn['plug#begin']()
   Plug('catppuccin/nvim', {['as']='catppuccin', ['tag']='v1.11.0'})
   Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
 
+  -- Plug('neovim/nvim-lspconfig') -- // WIP: for `cue`...
+
   Plug('nvimdev/lspsaga.nvim') -- , {['as']='lspsaga'})
 
   -- TODO: leap.nvim
@@ -184,10 +186,22 @@ if vim.lsp ~= nil then
     filetypes = { 'python' },
   }
  
+  vim.lsp.config['cue'] = {
+    -- // https://github.com/dagger/cuelsp
+    cmd = { 'cuelsp' }, -- !! NOTE: OKAY, but `cuelsp` is NOT maintained!!
+   
+    -- // https://github.com/cue-lang/cue/wiki/LSP:-Getting-started
+    -- cmd = { 'cue', 'lsp', }, -- !! NOPE 
+
+    root_markers = { 'cue.mod', '.git' }, 
+    filetypes = { 'cue' },
+  }
+
   -- // [gpanders_011]
   vim.lsp.enable({
     -- 'luals'
-    'basedpyright'
+    'basedpyright',
+    'cue',
   })
 end
 
