@@ -188,10 +188,10 @@ if vim.lsp ~= nil then
  
   vim.lsp.config['cue'] = {
     -- // https://github.com/dagger/cuelsp
-    cmd = { 'cuelsp' }, -- !! NOTE: OKAY, but `cuelsp` is NOT maintained!!
+    -- cmd = { 'cuelsp' }, -- !! NOTE: OKAY, but `cuelsp` is NOT maintained!!
    
     -- // https://github.com/cue-lang/cue/wiki/LSP:-Getting-started
-    -- cmd = { 'cue', 'lsp', }, -- !! NOPE 
+    cmd = { 'cue', 'lsp', }, -- !! NOTE: ALPHA version - v0.15.0-alpha.1
 
     root_markers = { 'cue.mod', '.git' }, 
     filetypes = { 'cue' },
