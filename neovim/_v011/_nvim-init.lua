@@ -8,6 +8,12 @@ local _COMMENT_info = [[
   // https://neovim.io/doc/user/lua-guide.html#lua-guide-config
   - Lua: `vim.fn.stdpath('config')`
   - Vim: `:echo stdpath('config')`
+
+  ### 'data' dir
+  // https://stackoverflow.com/a/70830232
+  - DEFAULT 'plug-in' dir is `/plugged` under 'data'
+
+  - Vim: `:lua FzfLua.files({cwd=vim.fn.stdpath('data')..'/plugged', query='lspconfig pyright'})`
 ]]
 -- ## OPTIONs
 -- [pn]
@@ -55,14 +61,16 @@ vim.keymap.set('n', '<Esc>', ':nohlsearch<CR>')
 
 
 
--- ## PLUG-INs
--- // Installed in DEFAULT dir: ~/.local/share/$NVIM_APPNAME/plugged/
+-- // DEFAULT dir for plug-ins - https://stackoverflow.com/a/70830232
+-- // ( `~/.local/share/$NVIM_APPNAME/plugged/` )
+local PLUGIN_DIR = vim.fn.stdpath('data')..'/plugged'
+
 local Plug = vim.fn['plug#']
-vim.fn['plug#begin']()
+vim.fn['plug#begin'](PLUGIN_DIR)
   Plug('catppuccin/nvim', {['as']='catppuccin', ['tag']='v1.11.0'})
   Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
 
-  -- Plug('neovim/nvim-lspconfig') -- // WIP: for `cue`...
+  -- Plug('neovim/nvim-lspconfig') -- // TIP: for `cue`...
 
   Plug('nvimdev/lspsaga.nvim') -- , {['as']='lspsaga'})
 
@@ -114,6 +122,11 @@ if vim.g.plugs['fzf-lua'] ~= nil then
 
   keymap('n', '<Leader><Space>', ':FzfLua buffers<CR>', {desc='Search for BUFFER'}) -- // `file_drop_or_qf`
   keymap('n', '<Leader>sf', ':FzfLua files<CR>', {desc='Search for FILE'})
+  keymap('n', '<Leader>sfp', function() FzfLua.files({
+      cwd=PLUGIN_DIR, query='^nvim-lspconfig pyright'
+    }) end,
+    {desc='Search for FILE in `PLUGGED/`'}
+  )
 
   -- // https://github.com/ibhagwan/fzf-lua#insert-mode-completion
   keymap({'i','n','v'}, '<C-x><C-f>', '<cmd>FzfLua complete_path<CR>', {desc="Auto-complete PATH"})
