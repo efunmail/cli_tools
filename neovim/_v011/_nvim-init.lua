@@ -201,20 +201,35 @@ if vim.lsp ~= nil then
  
   vim.lsp.config['cue'] = {
     -- // https://github.com/dagger/cuelsp
-    -- cmd = { 'cuelsp' }, -- !! NOTE: OKAY, but `cuelsp` is NOT maintained!!
-   
+    cmd = { 'cuelsp' }, -- !! NOTE: OKAY, but `cuelsp` is NOT maintained!!
+  
     -- // https://github.com/cue-lang/cue/wiki/LSP:-Getting-started
-    cmd = { 'cue', 'lsp', }, -- !! NOTE: ALPHA version - v0.15.0-alpha.1
+    -- cmd = { 'cue', 'lsp', }, -- !! NOTE: ALPHA version - v0.15.0-alpha.1
 
-    root_markers = { 'cue.mod', '.git' }, 
-    filetypes = { 'cue' },
+    root_markers =  { 'cue.mod', '.git' }, -- // NOTE: necessary!!
+    -- single_file_support = true, -- ??
+    -- workspace_required = false, -- ??
+
+    -- filetypes = { 'cue' },
   }
+
+  -- // INFO: marksman 
+  -- - https://github.com/artempyanykh/marksman/releases/download/2024-12-18/marksman-linux- x64
+  -- - sha256sum: b9cb666c643dfd9b699811fdfc445ed4c56be65c1d878c21d46847f0d7b0e475
+  -- //- https://www.reddit.com/r/HelixEditor/comments/1ibkb4u/comment/m9nqdb6/
+  vim.lsp.config['marksman'] = {
+    cmd = { 'marksman', 'server' },
+    -- root_markers = { '.marksman.toml', 'git' }, 
+    -- filetypes = { 'markdown' },
+  }
+                                                                                      
 
   -- // [gpanders_011]
   vim.lsp.enable({
     -- 'luals'
     'basedpyright',
-    'cue',
+    -- 'cue',
+    'marksman',
   })
 end
 
