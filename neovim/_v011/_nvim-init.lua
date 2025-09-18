@@ -196,7 +196,7 @@ if vim.lsp ~= nil then
     cmd = { 'basedpyright-langserver', '--stdio' },
     -- cmd = { 'basedpyright-langserver-bun', '--stdio' }, -- // OKAY
     -- root_markers = { 'pyrightconfig.json' }, -- TODO: optional??
-    -- filetypes = {'python'},
+    filetypes = {'python'},
   }
  
   vim.lsp.config['cue'] = {
@@ -209,7 +209,7 @@ if vim.lsp ~= nil then
     root_dir = vim.fn.getcwd(), -- // https://vi.stackexchange.com/a/43942
     -- root_markers = {''}, -- // ALT: is okay // ORIG: {'cue.mod','.git'} 
 
-    -- filetypes = {'cue'},
+    filetypes = {'cue'},
   }
 
   -- // INFO: marksman 
@@ -219,7 +219,7 @@ if vim.lsp ~= nil then
   vim.lsp.config['marksman'] = {
     cmd = { 'marksman', 'server' },
     -- root_markers = { '.marksman.toml', 'git' }, 
-    -- filetypes = { 'markdown' },
+    filetypes = {'markdown'},
   }
                                                                                       
 
