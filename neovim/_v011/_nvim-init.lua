@@ -70,8 +70,9 @@ vim.fn['plug#begin'](PLUGIN_DIR)
   Plug('catppuccin/nvim', {['as']='catppuccin', ['tag']='v1.11.0'})
   Plug('ibhagwan/fzf-lua') -- // ALT: Telescope
 
-  -- Plug('neovim/nvim-lspconfig') -- // TIP: for `cue`...
+  Plug('saghen/blink.cmp', {['version']='v1.7.0'}) -- // NOTE: 'version' 
 
+  -- Plug('neovim/nvim-lspconfig') -- // TIP: for `cue`...
   Plug('nvimdev/lspsaga.nvim') -- , {['as']='lspsaga'})
 
   -- TODO: leap.nvim
@@ -166,6 +167,20 @@ if vim.g.plugs['fzf-lua'] ~= nil then
     )
   end
   keymap('n', '<Leader>sg', function() fzf_ast_grep() end, {desc='WIP: AST-GREP search...'})
+end
+
+
+if vim.g.plugs['blink.cmp'] ~= nil then
+  local blink = require('blink.cmp')
+  blink.setup({
+    -- keymap = { preset = 'super-tab' }
+    keymap = {
+      preset = 'super-tab',
+      -- // https://www.reddit.com/r/neovim/comments/1hk1t35/a_custom_blink_config/
+      ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+      ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
+    }
+  })
 end
 
 
