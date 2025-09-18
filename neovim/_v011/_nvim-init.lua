@@ -192,13 +192,21 @@ end
 if vim.g.plugs['blink.cmp'] ~= nil then
   local blink = require('blink.cmp')
   blink.setup({
-    -- keymap = { preset = 'super-tab' }
+    -- // https://www.reddit.com/r/neovim/comments/1hk1t35/a_custom_blink_config/
     keymap = {
       preset = 'super-tab',
-      -- // https://www.reddit.com/r/neovim/comments/1hk1t35/a_custom_blink_config/
       ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
       ['<Tab>'] = { 'select_next', 'snippet_forward', 'fallback' },
-    }
+      ["<CR>"] = { "accept", "fallback" },
+      ["<Esc>"] = { "hide", "fallback" },
+      ["<PageUp>"] = { "scroll_documentation_up", "fallback" },
+      ["<PageDown>"] = { "scroll_documentation_down", "fallback" },
+    },
+    -- completion = { list = { selection = "manual" } }, -- // TODO: WIP?
+    -- // SEE:`completio.md`
+    -- completion = { preselect = false, auto_insert = false } -- // TODO: WIP?
+
+    -- // INFO: (wezterm.action.SendKey) https://www.reddit.com/r/neovim/comments/1l8llq5/blinknvim_how_to_manually_trigger_completions/
   })
 end
 
