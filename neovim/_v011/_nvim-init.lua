@@ -128,6 +128,11 @@ if vim.g.plugs['fzf-lua'] ~= nil then
     }) end,
     {desc='Search for FILE in `PLUGGED/`'}
   )
+  keymap('n', '<Leader>sgp', function() FzfLua.live_grep ({
+      cwd=PLUGIN_DIR 
+    }) end,
+    {desc='Grep in `PLUGGED/`'}
+  )
 
   keymap('n', '<Leader>nh',
     -- // TODO: `<cmd>FzfLua grep_curbuf query=stdpath<CR>` can be appended??
@@ -141,7 +146,7 @@ if vim.g.plugs['fzf-lua'] ~= nil then
     --   -- // `nvim_feedkeys` - https://vi.stackexchange.com/a/37760
     -- end,
     {desc='Search HELP for `standard-path`'}
-  )
+ )
 
   -- // https://github.com/ibhagwan/fzf-lua#insert-mode-completion
   keymap({'i','n','v'}, '<C-x><C-f>', '<cmd>FzfLua complete_path<CR>', {desc="Auto-complete PATH"})
