@@ -131,7 +131,15 @@ if vim.g.plugs['fzf-lua'] ~= nil then
 
   keymap('n', '<Leader>nh',
     -- // TODO: `<cmd>FzfLua grep_curbuf query=stdpath<CR>` can be appended??
-    '<cmd>FzfLua helptags query=standard-path<CR>',
+    ':FzfLua helptags query=standard-path<CR>',
+    -- ':lua FzfLua.helptags({query="standard-path"})<cmd>echo 123<CR>', -- <BAR> :echo 123',
+   
+    -- function()
+    --   vim.cmd([[ FzfLua helptags query=standard-path ]])
+    --   -- // `feedkeys` - https://stackoverflow.com/a/75714881
+    --   -- vim.cmd([[ call feedkeys("\n") ]])
+    --   -- // `nvim_feedkeys` - https://vi.stackexchange.com/a/37760
+    -- end,
     {desc='Search HELP for `standard-path`'}
   )
 
