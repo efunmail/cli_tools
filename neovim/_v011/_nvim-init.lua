@@ -190,13 +190,13 @@ if vim.lsp ~= nil then
   -- vim.lsp.config['luals'] = {
   --   cmd = { 'lua_ls', '--WIP' },
   --   root_markers = { 'WIP.lua' },
-  --   filetypes = { 'lua' },
+  --   filetypes = {'lua'},
   -- }
   vim.lsp.config['basedpyright'] = {
     cmd = { 'basedpyright-langserver', '--stdio' },
     -- cmd = { 'basedpyright-langserver-bun', '--stdio' }, -- // OKAY
     -- root_markers = { 'pyrightconfig.json' }, -- TODO: optional??
-    filetypes = { 'python' },
+    -- filetypes = {'python'},
   }
  
   vim.lsp.config['cue'] = {
@@ -206,11 +206,10 @@ if vim.lsp ~= nil then
     -- // https://github.com/cue-lang/cue/wiki/LSP:-Getting-started
     -- cmd = { 'cue', 'lsp', }, -- !! NOTE: ALPHA version - v0.15.0-alpha.1
 
-    root_markers =  { 'cue.mod', '.git' }, -- // NOTE: necessary!!
-    -- single_file_support = true, -- ??
-    -- workspace_required = false, -- ??
+    root_dir = vim.fn.getcwd(), -- // https://vi.stackexchange.com/a/43942
+    -- root_markers = {''}, -- // ALT: is okay // ORIG: {'cue.mod','.git'} 
 
-    -- filetypes = { 'cue' },
+    -- filetypes = {'cue'},
   }
 
   -- // INFO: marksman 
@@ -228,7 +227,7 @@ if vim.lsp ~= nil then
   vim.lsp.enable({
     -- 'luals'
     'basedpyright',
-    -- 'cue',
+    'cue',
     'marksman',
   })
 end
