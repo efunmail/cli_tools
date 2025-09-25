@@ -42,15 +42,15 @@ desc = 'DATES of files (interactive...)'
 [[manager.prepend_keymap]]
 on   = [ "s", "g" ]
 run  = "plugin fg"
-desc = "find file by content (fuzzy match)"
+desc = "[fzf] GREP/Search text"
 
 [[manager.prepend_keymap]]
 on   = [ "s", "G" ]
-run  = "plugin fg --args='rg'"
-desc = "find file by content (ripgrep match)"
+run  = "plugin fg -- rg" # // ORIG: `plugin fg --args='rg'`
+desc = "[ripgrep] GREP/Search text"
 
 [[manager.prepend_keymap]]
 on   = [ "s", "f" ]
-run  = "plugin fg --args='fzf'"
-desc = "find file by filename"
+run  = "plugin fg -- fzf" # // ORIG: `plugin fg --args='fzf'`
+desc =  "[fzf] Search FILENAMES"
 
