@@ -10,6 +10,13 @@
 #run  = 'shell --block --confirm "~/helix/2407/hx \"$@\""'
 #desc = 'Edit file with HELIX...'
 
+
+# [[mgr.prepend_keymap]]
+# on   = "!"
+# # // REF: Tips - https://yazi-rs.github.io/docs/tips/#dropping-to-shell
+# run  = 'shell "$SHELL" --block'
+# desc = "Open $SHELL here"
+
 [[mgr.prepend_keymap]]
 on   = [ "c", "c" ]
 run  = """shell --confirm 'cat "$0" | clip.exe'"""
