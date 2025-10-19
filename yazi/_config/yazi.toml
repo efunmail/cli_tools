@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 ratio = [1,2,5]
 
 [plugin]
@@ -16,7 +16,8 @@ edit = [
   # // OPEN file: `-R` for read-only
   #{ run = '${EDITOR:-vi} -R "$@"', desc = "$EDITOR", block = true, for = "unix" },
 
-  { run = '~/helix/2407/hx "$@"', desc = "EDIT with Helix...", block = true, for = "unix" },
+  # // NOTE: `hx` is a SYMLINK
+  { run = '~/helix/hx "$@"', desc = "EDIT with Helix...", block = true, for = "unix" },
 ]
 
 # // ALT: *Override* `reveal` action
