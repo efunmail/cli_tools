@@ -11,6 +11,11 @@
 #desc = 'Edit file with HELIX...'
 
 [[mgr.prepend_keymap]]
+on   = [ "c", "c" ]
+run  = """shell --confirm 'cat "$0" | clip.exe'"""
+desc = 'COPY file to WIN Clipboard // TODO: check clip.exe OR xclip'
+
+[[mgr.prepend_keymap]]
 on   = [ "f", "v" ]
 # // `--paging=always` for 'single-page' files
 # // `--style=plain` for NO decorations (ie. line numbers, borders, etc)
