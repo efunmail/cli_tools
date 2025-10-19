@@ -1,5 +1,12 @@
 [mgr]
 ratio = [1,2,5]
+ 
+# // REF: Config - https://yazi-rs.github.io/docs/configuration/yazi#mgr.sort_by
+sort_by = "mtime"
+sort_reverse = true
+# // REF: https://yazi-rs.github.io/docs/configuration/yazi#mgr.linemode
+linemode = "mtime" # // DEFAULT: "none"
+
 
 [plugin]
 prepend_previewers = [
